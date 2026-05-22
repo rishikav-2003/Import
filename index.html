@@ -2043,7 +2043,7 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
           <tr onclick="goDet('Inventory sync weekly','582301','Recurring','paused')">
             <td><div class="cell-name">Inventory sync weekly</div><div class="cell-sub">ID: 582301<button class="copy-btn" onclick="copyText('582301', this, event)" title="Copy Job ID"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td>
             <td>Recurring</td>
-            <td><div class="status-dot"><div class="dot dot-orange"></div>Paused</div></td>
+            <td><div class="status-dot"><div class="dot dot-gray"></div>Paused</div></td>
             <td>Databricks</td>
             <td>Product<div class="cell-sub">Upsert</div></td>
             <td>Paused by Morty Smith<div class="cell-sub">Nov 06, 2024 10:30 AM</div></td>
@@ -4807,7 +4807,7 @@ let _currentJobId = null; // Tracks which job is being viewed for status sync ba
 // Update the status cell for a job in the main list
 function updateMainListStatus(jobId, dotClass, statusText) {
   // Find the row by checking each row's onclick attribute for the job ID
-  const rows = document.querySelectorAll('#screen-list tbody tr');
+  const rows = document.querySelectorAll('#screen-listing tbody tr');
   rows.forEach(row => {
     const onclick = row.getAttribute('onclick') || '';
     if (onclick.includes("'" + jobId + "'")) {
@@ -4842,7 +4842,7 @@ function goDet(name,id,type,status) {
     'completed':['var(--neutral-5)','Completed'],
     'rejected':['var(--red-6)','Rejected'],
     'failed':['var(--red-6)','Import failed'],
-    'paused':['var(--orange-7)','Paused'],
+    'paused':['var(--neutral-5)','Paused'],
     'stopped':['var(--neutral-5)','Stopped'],
     'validation-failed':['var(--red-6)','Validation failed']
   };
@@ -5058,37 +5058,59 @@ let _pendingJobName = '';
 
 function showPauseModal() { document.getElementById('pause-modal').classList.remove('hidden'); }
 function closePauseModal() { document.getElementById('pause-modal').classList.add('hidden'); }
+// Update the LATEST run (first row) in the runs table — used by pause/stop/resume
+function updateLatestRunStatus(dotClass, statusText) {
+  const firstRow = document.querySelector('#tab-runs .runs-table tbody tr');
+  if (!firstRow) return;
+  const statusCell = firstRow.querySelectorAll('td')[2]; // 3rd td is Status
+  if (!statusCell) return;
+  statusCell.innerHTML = '<div class="status-dot"><div class="dot ' + dotClass + '"></div>' + statusText + '</div>';
+}
+
+function showResumeModal() { document.getElementById('resume-modal').classList.remove('hidden'); }
+function closeResumeModal() { document.getElementById('resume-modal').classList.add('hidden'); }
+
 function confirmPause() {
   closePauseModal();
   // If triggered from row menu, just sync main list and exit
   if (_pendingActionFromRow) {
-    if (_currentJobId) updateMainListStatus(_currentJobId, 'dot-orange', 'Paused');
+    if (_currentJobId) updateMainListStatus(_currentJobId, 'dot-gray', 'Paused');
     _pendingActionFromRow = false;
     return;
   }
   // Detail page flow
-  { const _d = document.getElementById('det-dot'); if (_d) _d.style.background = 'var(--orange-7)'; }
+  { const _d = document.getElementById('det-dot'); if (_d) _d.style.background = 'var(--neutral-5)'; }
   { const _t = document.getElementById('det-status-txt'); if (_t) _t.textContent = 'Paused'; }
   document.getElementById('pause-icon').classList.add('hidden');
   document.getElementById('resume-icon').classList.remove('hidden');
   document.getElementById('pause-resume-label').textContent = 'Resume';
   document.getElementById('btn-pause-resume').dataset.state = 'paused';
-  if (_currentJobId) updateMainListStatus(_currentJobId, 'dot-orange', 'Paused');
+  if (_currentJobId) updateMainListStatus(_currentJobId, 'dot-gray', 'Paused');
+  // Also update the latest run's status in the runs table
+  updateLatestRunStatus('dot-gray', 'Paused');
+}
+
+function confirmResume() {
+  closeResumeModal();
+  // Detail page flow
+  { const _d = document.getElementById('det-dot'); if (_d) _d.style.background = 'var(--green-7)'; }
+  { const _t = document.getElementById('det-status-txt'); if (_t) _t.textContent = 'Live'; }
+  document.getElementById('pause-icon').classList.remove('hidden');
+  document.getElementById('resume-icon').classList.add('hidden');
+  document.getElementById('pause-resume-label').textContent = 'Pause';
+  document.getElementById('btn-pause-resume').dataset.state = 'active';
+  // Sync to main list
+  if (_currentJobId) updateMainListStatus(_currentJobId, 'dot-green', 'Live');
+  // Latest run resumes to active state — restore to "Import in progress"
+  updateLatestRunStatus('dot-green', 'Import in progress');
 }
 
 function handlePauseResume() {
   const btn = document.getElementById('btn-pause-resume');
   const state = btn.dataset.state || 'active';
   if (state === 'paused') {
-    // Resume the job
-    { const _d = document.getElementById('det-dot'); if (_d) _d.style.background = 'var(--green-7)'; }
-    { const _t = document.getElementById('det-status-txt'); if (_t) _t.textContent = 'Live'; }
-    document.getElementById('pause-icon').classList.remove('hidden');
-    document.getElementById('resume-icon').classList.add('hidden');
-    document.getElementById('pause-resume-label').textContent = 'Pause';
-    btn.dataset.state = 'active';
-    // Sync to main list
-    if (_currentJobId) updateMainListStatus(_currentJobId, 'dot-green', 'Live');
+    // Show the resume confirmation modal
+    showResumeModal();
   } else {
     showPauseModal();
   }
@@ -5116,6 +5138,8 @@ function confirmStop() {
     btn.style.display = '';
   });
   if (_currentJobId) updateMainListStatus(_currentJobId, 'dot-gray', 'Stopped');
+  // Also update the latest run's status in the runs table
+  updateLatestRunStatus('dot-gray', 'Stopped');
 }
 // ── ROW OVERFLOW MENUS ──
 function toggleRowMenu(e, menuId) {
@@ -5666,6 +5690,23 @@ function goJobDetail() {
       <div class="confirm-modal-footer">
         <button class="btn-confirm-cancel" onclick="closePauseModal()">Cancel</button>
         <button class="btn-confirm-pause" onclick="confirmPause()">Pause job</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resume confirmation modal -->
+  <div class="confirm-modal-overlay hidden" id="resume-modal" onclick="closeResumeModal()">
+    <div class="confirm-modal" onclick="event.stopPropagation()" role="dialog" aria-labelledby="resume-modal-title">
+      <div class="confirm-modal-header">
+        <h2 class="confirm-modal-title" id="resume-modal-title">Resume this job?</h2>
+      </div>
+      <div class="confirm-modal-body">
+        <p>Scheduled runs will start again. The next run will be on 23 May, 2026 02:00 AM.</p>
+        <p>You can pause this job at any time.</p>
+      </div>
+      <div class="confirm-modal-footer">
+        <button class="btn-confirm-cancel" onclick="closeResumeModal()">Cancel</button>
+        <button class="btn-confirm-pause" onclick="confirmResume()">Resume job</button>
       </div>
     </div>
   </div>
