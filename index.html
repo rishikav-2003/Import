@@ -127,7 +127,7 @@ html { scroll-behavior: auto; }
 .tz-info {
   display: inline-block;
   cursor: default;
-  margin-left: 8px;
+  margin-left: 5px;
   vertical-align: -2px;
   position: relative;
   line-height: 0;
@@ -136,7 +136,7 @@ html { scroll-behavior: auto; }
 .tz-info:hover svg { color: var(--neutral-9); }
 /* tz-tip: rendered via JS into a fixed div — escapes all overflow clipping */
 .tz-info .tz-tip { display: none; }
-.run-phase-meta .tz-info { margin-left: 8px; }
+.run-phase-meta .tz-info { margin-left: 4px; }
 /* Allow tooltip to overflow table ancestors */
 table, thead, tbody, tr, th, td { overflow: visible !important; }
 
@@ -450,89 +450,13 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
 .run-phase-icon.active  { background: #E8F0FE; }
 .run-phase-icon.failed  { background: #FDECEA; }
 .run-phase-icon.pending { background: var(--neutral-1); }
-.run-phase-icon.warning { background: #FFF4ED; }
-
-/* Runs dashboard — stat cards above runs table */
-.runs-dashboard {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
-  margin-bottom: 16px;
-  font-family: Roboto, var(--font);
+.run-stats-card.warning-state {
+  border-color: var(--orange-7);
 }
-.runs-dash-card {
-  background: #FFFFFF;
-  border: 1px solid #EBECF0;
-  border-radius: 8px;
-  padding: 20px 24px;
-}
-.runs-dash-value {
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 30px;
-  color: #091E42;
-}
-.runs-dash-value.warning { color: #091E42; }
-.runs-dash-label {
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 20px;
-  color: #253858;
-  margin-top: 4px;
-}
-.runs-dash-sub {
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
-  color: #7A869A;
-  margin-top: 2px;
+.run-phase-icon.warning {
+  background: #FEF3E7;
 }
 
-/* Copy icon — used next to IDs and table names */
-.copy-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  padding: 2px 4px;
-  margin-left: 4px;
-  cursor: pointer;
-  color: var(--neutral-6);
-  border-radius: 3px;
-  vertical-align: -3px;
-}
-.copy-btn:hover { color: var(--neutral-9); background: var(--neutral-1); }
-.copy-btn.copied { color: var(--green-7); }
-.copy-btn svg { display: block; }
-
-/* Truncated cell sub-text — shows full value on hover via title */
-.cell-sub.truncate {
-  flex: 0 1 auto;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: inline-block;
-  vertical-align: middle;
-}
-/* Wrapper that keeps sub-text + copy button on one line */
-.cell-sub-row {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  min-width: 0;
-  max-width: 200px;
-}
-
-/* Grayed-out phase (used for upcoming phases that haven't started yet) */
-.run-phase.phase-pending .run-phase-icon { background: var(--neutral-1) !important; }
-.run-phase.phase-pending .run-phase-icon svg { opacity: 0.4; }
-.run-phase.phase-pending .run-phase-label { color: var(--neutral-6); }
-.run-phase.phase-pending .run-phase-meta,
-.run-phase.phase-pending .run-stats-card { display: none; }
-.run-phase.phase-pending .phase-pending-msg { display: block; }
-.phase-pending-msg { display: none; font-size: 13px; color: var(--neutral-7); margin-top: 4px; }
 .run-phase-line {
   width: 2px; flex: 1; min-height: 20px;
   background: var(--neutral-3);
@@ -566,16 +490,6 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
   border-color: var(--red-6);
   background: #FEF6F6;
 }
-.run-stats-card.status-warning {
-  border-color: var(--orange-7);
-  background: #FFFBF6;
-}
-.run-stats-card.status-validating {
-  border-color: var(--neutral-3);
-  background: var(--white);
-}
-@keyframes spin-rotate { to { transform: rotate(360deg); } }
-.spin-anim { animation: spin-rotate 1.2s linear infinite; transform-origin: center; transform-box: fill-box; }
 .run-stats-header {
   padding: 16px 20px 14px;
 }
@@ -683,25 +597,6 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
 }
 .tbl-nav-btn:hover:not(:disabled) { color: var(--blue-7); }
 .tbl-nav-btn:disabled { color: var(--neutral-4); cursor: not-allowed; }
-.tbl-nav-select {
-  height: 34px;
-  padding: 0 28px 0 10px;
-  border: 1px solid var(--neutral-3);
-  border-radius: var(--radius-sm);
-  background: var(--white);
-  font-size: 14px; font-weight: 500; font-family: var(--font);
-  color: var(--neutral-11);
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2397A0AF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  max-width: 340px;
-  min-width: 180px;
-}
-.tbl-nav-select:hover { border-color: var(--neutral-5); }
-.tbl-nav-select:focus { outline: none; border-color: var(--green-7); box-shadow: 0 0 0 2px rgba(66,176,64,.12); }
 .tbl-current-name {
   font-size: 15px; font-weight: 600; color: var(--neutral-11);
   width: 280px;
@@ -1125,10 +1020,6 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
   display: flex;
 }
 .cond-config .input-field { width: 140px; }
-/* Inline input within the cond-label-row */
-.cond-inline-input { width: 120px; cursor: text; height: 32px; }
-.cond-label-row .input-with-suffix { display: inline-block; position: relative; }
-.cond-label-row .input-with-suffix .input-field { padding-right: 22px; }
 
 /* ── ERROR STATES ── */
 
@@ -1682,16 +1573,12 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
 
 .runs-table th .th-sub {
   font-weight: 400;
-  color: var(--neutral-6);
+  color: var(--neutral-5);
   display: block;
   font-size: 11px;
   margin-top: 2px;
 }
 .runs-table th.num-cell { text-align: right; }
-/* Column widths — Records imported column wider to fit "2,319,000 / 2,320,000" */
-.runs-table .records-imported-col { width: 220px; min-width: 220px; white-space: nowrap; }
-.runs-table th.num-cell:not(.records-imported-col),
-.runs-table td.num-cell:not(.records-imported-col) { width: 130px; }
 /* Row overflow menu (⋮) — replaces inline Re-run buttons */
 .row-overflow-wrap { position: relative; display: inline-block; }
 .row-overflow-btn {
@@ -1763,160 +1650,6 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
 
 .detail-body { padding: var(--sp5) var(--side-margin); max-width: calc(var(--content-width) + var(--side-margin) * 2); margin: 0 auto; padding-left: calc(var(--side-margin) + 26px); }
 
-/* ── CONFIGURATION SUMMARY ── */
-.config-sum { padding-top: 4px; padding-bottom: 60px; }
-.config-sum-card {
-  background: var(--white);
-  border: 1px solid var(--neutral-3);
-  border-radius: 8px;
-  padding: 28px 32px;
-}
-.config-sum-card-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--neutral-11);
-  margin: 0;
-  letter-spacing: -0.01em;
-}
-.config-sum-section {
-  padding-top: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--neutral-3);
-}
-.config-sum-section:first-of-type {
-  padding-top: 20px;
-  border-top: 1px solid var(--neutral-3);
-  margin-top: 20px;
-}
-.config-sum-section:last-child {
-  border-bottom: none;
-  padding-bottom: 4px;
-}
-.config-sum-title {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--neutral-11);
-  margin-bottom: 20px;
-  letter-spacing: -0.01em;
-}
-.config-sum-subtitle {
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--neutral-7);
-  margin-top: 24px;
-  margin-bottom: 12px;
-}
-.config-sum-row {
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 0;
-}
-.config-sum-field {
-  flex: 0 0 auto;
-  padding: 0 32px;
-  border-left: 1px solid var(--neutral-3);
-  min-width: 180px;
-}
-.config-sum-field:first-child {
-  padding-left: 0;
-  border-left: none;
-}
-.config-sum-value .cfg-muted {
-  color: var(--neutral-7);
-  font-weight: 400;
-  margin-left: 4px;
-}
-.config-sum-label {
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--neutral-7);
-  margin-bottom: 8px;
-  line-height: 1.4;
-}
-.config-sum-value {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--neutral-11);
-  line-height: 1.4;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.config-sum-value.mono {
-  font-family: var(--font);
-  font-size: 14px;
-  font-weight: 500;
-}
-.config-sum-toggle {
-  background: none;
-  border: none;
-  color: var(--blue-7);
-  font-size: 13px;
-  font-weight: 500;
-  font-family: var(--font);
-  cursor: pointer;
-  padding: 0;
-  margin-top: 20px;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-.config-sum-toggle:hover { text-decoration: underline; }
-.config-sum-toggle svg { transition: transform 0.15s; }
-.config-sum-toggle.collapsed svg { transform: rotate(180deg); }
-
-/* Mapping table */
-.config-sum-table {
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid var(--neutral-3);
-  border-radius: 8px;
-  overflow: hidden;
-  background: var(--white);
-  margin-top: 4px;
-}
-.config-sum-table th {
-  padding: 14px 20px;
-  text-align: left;
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--neutral-7);
-  background: var(--neutral-1);
-  border-bottom: 1px solid var(--neutral-3);
-}
-.config-sum-table td {
-  padding: 18px 20px;
-  font-size: 14px;
-  color: var(--neutral-11);
-  border-bottom: 1px solid var(--neutral-3);
-  vertical-align: middle;
-}
-.config-sum-table tr:last-child td { border-bottom: none; }
-.config-sum-table .req-star { color: var(--red-6); margin-left: 1px; }
-.config-sum-table .req-check {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--green-7);
-}
-.config-sum-table .req-empty {
-  display: inline-block;
-  width: 18px; height: 18px;
-}
-.fallback-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 5px 10px;
-  background: var(--neutral-1);
-  border-radius: 4px;
-  font-size: 13px;
-  color: var(--neutral-7);
-  white-space: nowrap;
-}
-.fallback-tag strong { color: var(--neutral-11); font-weight: 500; }
-
 /* Runs table */
 .runs-wrap { border: 1px solid var(--neutral-3); border-radius: var(--radius-lg); overflow: hidden; background: var(--white); }
 .runs-table { width: 100%; border-collapse: collapse; }
@@ -1934,6 +1667,27 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
 
 @keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:1} }
 .calculating { color: var(--neutral-7); font-size: 12px; font-style: italic; animation: pulse 1.5s ease-in-out infinite; }
+
+/* ── DASHBOARD CARDS (above tabs on detail page) ── */
+.dash-cards-row {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0 0 26px;
+  padding-bottom: 4px;
+}
+.dash-card {
+  background: var(--white);
+  border: 1px solid var(--neutral-3);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  min-width: 148px;
+  cursor: default;
+  user-select: none;
+  pointer-events: none; /* not clickable */
+}
+.dash-card-label { font-size: 12px; color: var(--neutral-7); margin-bottom: 4px; }
+.dash-card-value { font-size: 20px; font-weight: 600; color: var(--neutral-11); line-height: 1.2; }
+.dash-card-sub { font-size: 12px; color: var(--neutral-6); margin-top: 3px; }
 </style>
 </head>
 <body>
@@ -1981,13 +1735,13 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
             <th>Status</th>
             <th>Source</th>
             <th>Profile<span class="th-sub">Method</span></th>
-            <th>Last activity<span class="th-sub">Timestamp <span class="tz-info" style="vertical-align:-1px;"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></span></th>
+            <th>Last updated <span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="7" cy="7" r="5.5"/><path d="M7 5.5v2.5" stroke-linecap="round"/><circle cx="7" cy="9.5" r="0.6" fill="currentColor" stroke="none"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span><span class="th-sub">Timestamp</span></th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr onclick="goDet('Customer data migration Q4-2024','291726','Recurring','validating')">
-            <td><div class="cell-name">Customer data migration Q4-2024</div><div class="cell-sub">ID: 291726<button class="copy-btn" onclick="copyText('291726', this, event)" title="Copy Job ID"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td>
+            <td><div class="cell-name">Customer data migration Q4-2024</div><div class="cell-sub">ID: 291726</div></td>
             <td>Recurring</td>
             <td><div class="status-dot"><div class="dot dot-yellow"></div>Validating</div></td>
             <td>Databricks</td>
@@ -1996,7 +1750,7 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
             <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-job-291726')" aria-label="Job actions"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="7" cy="2.5" r="1.2"/><circle cx="7" cy="7" r="1.2"/><circle cx="7" cy="11.5" r="1.2"/></svg></button><div class="row-overflow-menu hidden" id="menu-job-291726"><button class="row-overflow-item" onclick="alert('Edit job (menu-job-291726)')">Edit</button><button class="row-overflow-item" onclick="alert('Duplicate job (menu-job-291726)')">Duplicate</button><button class="row-overflow-item" onclick="rowPauseAction('291726','Customer data migration Q4-2024')">Pause</button><button class="row-overflow-item row-overflow-item-danger" onclick="rowStopAction('291726','Customer data migration Q4-2024')">Stop</button></div></div></td>
           </tr>
           <tr onclick="goDet('Loyalty points daily sync','318402','Recurring','live')">
-            <td><div class="cell-name">Loyalty points daily sync</div><div class="cell-sub">ID: 318402<button class="copy-btn" onclick="copyText('318402', this, event)" title="Copy Job ID"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td>
+            <td><div class="cell-name">Loyalty points daily sync</div><div class="cell-sub">ID: 318402</div></td>
             <td>Recurring</td>
             <td><div class="status-dot"><div class="dot dot-green"></div>Live</div></td>
             <td>Databricks</td>
@@ -2005,7 +1759,7 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
             <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-job-318402')" aria-label="Job actions"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="7" cy="2.5" r="1.2"/><circle cx="7" cy="7" r="1.2"/><circle cx="7" cy="11.5" r="1.2"/></svg></button><div class="row-overflow-menu hidden" id="menu-job-318402"><button class="row-overflow-item" onclick="alert('Edit job (menu-job-318402)')">Edit</button><button class="row-overflow-item" onclick="alert('Duplicate job (menu-job-318402)')">Duplicate</button><button class="row-overflow-item" onclick="rowPauseAction('318402','Loyalty points daily sync')">Pause</button><button class="row-overflow-item row-overflow-item-danger" onclick="rowStopAction('318402','Loyalty points daily sync')">Stop</button></div></div></td>
           </tr>
           <tr onclick="goDet('Member profile enrichment','920183','Recurring','awaiting')">
-            <td><div class="cell-name">Member profile enrichment</div><div class="cell-sub">ID: 920183<button class="copy-btn" onclick="copyText('920183', this, event)" title="Copy Job ID"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td>
+            <td><div class="cell-name">Member profile enrichment</div><div class="cell-sub">ID: 920183</div></td>
             <td>Recurring</td>
             <td><div class="status-dot"><div class="dot dot-orange"></div>Awaiting approval</div></td>
             <td>Databricks</td>
@@ -2014,7 +1768,7 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
             <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-job-920183')" aria-label="Job actions"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="7" cy="2.5" r="1.2"/><circle cx="7" cy="7" r="1.2"/><circle cx="7" cy="11.5" r="1.2"/></svg></button><div class="row-overflow-menu hidden" id="menu-job-920183"><button class="row-overflow-item" onclick="alert('Edit job (menu-job-920183)')">Edit</button><button class="row-overflow-item" onclick="alert('Duplicate job (menu-job-920183)')">Duplicate</button><button class="row-overflow-item" onclick="rowPauseAction('920183','Member profile enrichment')">Pause</button><button class="row-overflow-item row-overflow-item-danger" onclick="rowStopAction('920183','Member profile enrichment')">Stop</button></div></div></td>
           </tr>
           <tr onclick="goDet('Transaction history import','291724','One-time','awaiting')">
-            <td><div class="cell-name">Transaction history import</div><div class="cell-sub">ID: 291724<button class="copy-btn" onclick="copyText('291724', this, event)" title="Copy Job ID"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td>
+            <td><div class="cell-name">Transaction history import</div><div class="cell-sub">ID: 291724</div></td>
             <td>One-time</td>
             <td><div class="status-dot"><div class="dot dot-orange"></div>Awaiting approval</div></td>
             <td>File upload</td>
@@ -2023,7 +1777,7 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
             <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-job-291724')" aria-label="Job actions"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="7" cy="2.5" r="1.2"/><circle cx="7" cy="7" r="1.2"/><circle cx="7" cy="11.5" r="1.2"/></svg></button><div class="row-overflow-menu hidden" id="menu-job-291724"><button class="row-overflow-item" onclick="alert('Edit job (menu-job-291724)')">Edit</button><button class="row-overflow-item" onclick="alert('Duplicate job (menu-job-291724)')">Duplicate</button><button class="row-overflow-item row-overflow-item-danger" disabled style="opacity:0.5;cursor:not-allowed;" onclick="event.stopPropagation()">Stop</button></div></div></td>
           </tr>
           <tr onclick="goDet('Campaign attribution data','281910','One-time','validating')">
-            <td><div class="cell-name">Campaign attribution data</div><div class="cell-sub">ID: 281910<button class="copy-btn" onclick="copyText('281910', this, event)" title="Copy Job ID"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td>
+            <td><div class="cell-name">Campaign attribution data</div><div class="cell-sub">ID: 281910</div></td>
             <td>One-time</td>
             <td><div class="status-dot"><div class="dot dot-yellow"></div>Validating</div></td>
             <td>SFTP</td>
@@ -2032,7 +1786,7 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
             <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-job-281910')" aria-label="Job actions"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="7" cy="2.5" r="1.2"/><circle cx="7" cy="7" r="1.2"/><circle cx="7" cy="11.5" r="1.2"/></svg></button><div class="row-overflow-menu hidden" id="menu-job-281910"><button class="row-overflow-item" onclick="alert('Edit job (menu-job-281910)')">Edit</button><button class="row-overflow-item" onclick="alert('Duplicate job (menu-job-281910)')">Duplicate</button><button class="row-overflow-item row-overflow-item-danger" onclick="rowStopAction('281910','Campaign attribution data')">Stop</button></div></div></td>
           </tr>
           <tr onclick="goDet('Points balance reconciliation','746251','Recurring','draft')">
-            <td><div class="cell-name">Points balance reconciliation</div><div class="cell-sub">ID: 746251<button class="copy-btn" onclick="copyText('746251', this, event)" title="Copy Job ID"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td>
+            <td><div class="cell-name">Points balance reconciliation</div><div class="cell-sub">ID: 746251</div></td>
             <td>Recurring</td>
             <td><div class="status-dot"><div class="dot dot-blue"></div>Draft</div></td>
             <td>Databricks</td>
@@ -2041,7 +1795,7 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
             <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-job-746251')" aria-label="Job actions"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="7" cy="2.5" r="1.2"/><circle cx="7" cy="7" r="1.2"/><circle cx="7" cy="11.5" r="1.2"/></svg></button><div class="row-overflow-menu hidden" id="menu-job-746251"><button class="row-overflow-item" onclick="alert('Edit job (menu-job-746251)')">Edit</button><button class="row-overflow-item" onclick="alert('Duplicate job (menu-job-746251)')">Duplicate</button><button class="row-overflow-item" disabled style="opacity:0.5;cursor:not-allowed;" onclick="event.stopPropagation()">Pause</button><button class="row-overflow-item row-overflow-item-danger" disabled style="opacity:0.5;cursor:not-allowed;" onclick="event.stopPropagation()">Stop</button></div></div></td>
           </tr>
           <tr onclick="goDet('Inventory sync weekly','582301','Recurring','paused')">
-            <td><div class="cell-name">Inventory sync weekly</div><div class="cell-sub">ID: 582301<button class="copy-btn" onclick="copyText('582301', this, event)" title="Copy Job ID"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td>
+            <td><div class="cell-name">Inventory sync weekly</div><div class="cell-sub">ID: 582301</div></td>
             <td>Recurring</td>
             <td><div class="status-dot"><div class="dot dot-gray"></div>Paused</div></td>
             <td>Databricks</td>
@@ -2050,7 +1804,7 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
             <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-job-582301')" aria-label="Job actions"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="7" cy="2.5" r="1.2"/><circle cx="7" cy="7" r="1.2"/><circle cx="7" cy="11.5" r="1.2"/></svg></button><div class="row-overflow-menu hidden" id="menu-job-582301"><button class="row-overflow-item" onclick="alert('Edit job (menu-job-582301)')">Edit</button><button class="row-overflow-item" onclick="alert('Duplicate job (menu-job-582301)')">Duplicate</button><button class="row-overflow-item" onclick="rowResumeAction('582301','Inventory sync weekly')">Resume</button><button class="row-overflow-item row-overflow-item-danger" onclick="rowStopAction('582301','Inventory sync weekly')">Stop</button></div></div></td>
           </tr>
           <tr onclick="goDet('Promotion templates bulk upload','094724','One-time','completed')">
-            <td><div class="cell-name">Promotion templates bulk upload</div><div class="cell-sub">ID: 094724<button class="copy-btn" onclick="copyText('094724', this, event)" title="Copy Job ID"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td>
+            <td><div class="cell-name">Promotion templates bulk upload</div><div class="cell-sub">ID: 094724</div></td>
             <td>One-time</td>
             <td><div class="status-dot"><div class="dot dot-gray"></div>Completed</div></td>
             <td>SFTP</td>
@@ -2059,7 +1813,7 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
             <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-job-094724')" aria-label="Job actions"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="7" cy="2.5" r="1.2"/><circle cx="7" cy="7" r="1.2"/><circle cx="7" cy="11.5" r="1.2"/></svg></button><div class="row-overflow-menu hidden" id="menu-job-094724"><button class="row-overflow-item" onclick="alert('Edit job (menu-job-094724)')">Edit</button><button class="row-overflow-item" onclick="alert('Duplicate job (menu-job-094724)')">Duplicate</button><button class="row-overflow-item" disabled style="opacity:0.5;cursor:not-allowed;" onclick="event.stopPropagation()">Pause</button><button class="row-overflow-item row-overflow-item-danger" disabled style="opacity:0.5;cursor:not-allowed;" onclick="event.stopPropagation()">Stop</button></div></div></td>
           </tr>
           <tr onclick="goDet('Customer tier migration','473023','Recurring','stopped')">
-            <td><div class="cell-name">Customer tier migration</div><div class="cell-sub">ID: 473023<button class="copy-btn" onclick="copyText('473023', this, event)" title="Copy Job ID"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td>
+            <td><div class="cell-name">Customer tier migration</div><div class="cell-sub">ID: 473023</div></td>
             <td>Recurring</td>
             <td><div class="status-dot"><div class="dot dot-gray"></div>Stopped</div></td>
             <td>Databricks</td>
@@ -2068,7 +1822,7 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
             <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-job-473023')" aria-label="Job actions"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="7" cy="2.5" r="1.2"/><circle cx="7" cy="7" r="1.2"/><circle cx="7" cy="11.5" r="1.2"/></svg></button><div class="row-overflow-menu hidden" id="menu-job-473023"><button class="row-overflow-item" onclick="alert('Edit job (menu-job-473023)')">Edit</button><button class="row-overflow-item" onclick="alert('Duplicate job (menu-job-473023)')">Duplicate</button><button class="row-overflow-item" disabled style="opacity:0.5;cursor:not-allowed;" onclick="event.stopPropagation()">Pause</button><button class="row-overflow-item row-overflow-item-danger" disabled style="opacity:0.5;cursor:not-allowed;" onclick="event.stopPropagation()">Stop</button></div></div></td>
           </tr>
           <tr onclick="goDet('Order sync approval','891202','Recurring','rejected')">
-            <td><div class="cell-name">Order sync approval</div><div class="cell-sub">ID: 891202<button class="copy-btn" onclick="copyText('891202', this, event)" title="Copy Job ID"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td>
+            <td><div class="cell-name">Order sync approval</div><div class="cell-sub">ID: 891202</div></td>
             <td>Recurring</td>
             <td><div class="status-dot"><div class="dot dot-red"></div>Rejected</div></td>
             <td>Databricks</td>
@@ -2077,7 +1831,7 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
             <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-job-891202')" aria-label="Job actions"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="7" cy="2.5" r="1.2"/><circle cx="7" cy="7" r="1.2"/><circle cx="7" cy="11.5" r="1.2"/></svg></button><div class="row-overflow-menu hidden" id="menu-job-891202"><button class="row-overflow-item" onclick="alert('Edit job (menu-job-891202)')">Edit</button><button class="row-overflow-item" onclick="alert('Duplicate job (menu-job-891202)')">Duplicate</button><button class="row-overflow-item" disabled style="opacity:0.5;cursor:not-allowed;" onclick="event.stopPropagation()">Pause</button><button class="row-overflow-item row-overflow-item-danger" disabled style="opacity:0.5;cursor:not-allowed;" onclick="event.stopPropagation()">Stop</button></div></div></td>
           </tr>
           <tr onclick="goDet('Product catalog update','452235','One-time','failed')">
-            <td><div class="cell-name">Product catalog update</div><div class="cell-sub">ID: 452235<button class="copy-btn" onclick="copyText('452235', this, event)" title="Copy Job ID"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td>
+            <td><div class="cell-name">Product catalog update</div><div class="cell-sub">ID: 452235</div></td>
             <td>One-time</td>
             <td><div class="status-dot"><div class="dot dot-red"></div>Import failed</div></td>
             <td>Databricks</td>
@@ -2145,7 +1899,7 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
               <div style="display:inline-flex;flex-direction:column;">
               <div class="field-row-freq" id="freq-field-row">
                 <div class="field-col" style="position:relative;">
-                  <div class="field-label">Frequency <span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></div>
+                  <div class="field-label">Frequency <span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="7" cy="7" r="5.5"/><path d="M7 5.5v2.5" stroke-linecap="round"/><circle cx="7" cy="9.5" r="0.6" fill="currentColor" stroke="none"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></div>
                   <div class="select-field" onclick="toggleFreqMenu(event)" id="freq-trigger" style="white-space:nowrap;width:324px;">
                     <span id="freq-val" style="color:var(--neutral-6);">Select frequency</span>
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg>
@@ -2265,7 +2019,7 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
             <div id="freq-cron" class="hidden">
               <div class="field-row-freq">
                 <div class="field-col" style="position:relative;">
-                  <div class="field-label">Frequency <span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></div>
+                  <div class="field-label">Frequency <span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="7" cy="7" r="5.5"/><path d="M7 5.5v2.5" stroke-linecap="round"/><circle cx="7" cy="9.5" r="0.6" fill="currentColor" stroke="none"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></div>
                   <div class="select-field" onclick="toggleFreqMenuCron(event)" style="white-space:nowrap;width:324px;">
                     <span>Custom (cron expression)</span>
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg>
@@ -2307,7 +2061,7 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
             </div>
             <div style="margin-top:0;">
               <div style="margin-bottom:24px;">
-                <div class="section-label" style="margin-bottom:12px;">Start time <span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></div>
+                <div class="section-label" style="margin-bottom:12px;">Start time <span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="7" cy="7" r="5.5"/><path d="M7 5.5v2.5" stroke-linecap="round"/><circle cx="7" cy="9.5" r="0.6" fill="currentColor" stroke="none"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></div>
                 <div class="radio-group">
                   <div class="radio-item" onclick="selSW('start','now')"><div class="radio-circle on" id="sw-s-now"></div>Start immediately</div>
                   <div class="radio-item" onclick="selSW('start','pick')"><div class="radio-circle" id="sw-s-pick"></div>Specific date and time</div>
@@ -2353,7 +2107,7 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
                 </div>
               </div>
               <div>
-                <div class="section-label" style="margin-bottom:12px;">End time <span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></div>
+                <div class="section-label" style="margin-bottom:12px;">End time</div>
                 <div class="radio-group">
                   <div class="radio-item" onclick="selSW('end','none')"><div class="radio-circle on" id="sw-e-none"></div>Runs indefinitely</div>
                   <div class="radio-item" onclick="selSW('end','pick')"><div class="radio-circle" id="sw-e-pick"></div>Specific date and time</div>
@@ -2400,57 +2154,75 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
             </div>
           </div>
 
-        </div><!-- /freq-config -->
+          <div style="height:1px; background:var(--neutral-3); margin-bottom:32px;"></div>
 
-        <div id="approval-policy-wrap">
-        <div style="height:1px; background:var(--neutral-3); margin-bottom:32px;"></div>
+          <div class="form-section">
+            <div class="section-label">Run approval</div>
+            <div class="section-hint" style="margin-bottom:16px;">Control when runs need manual review before importing.</div>
 
-        <div class="form-section">
-          <div class="section-label">Run approval</div>
-          <div class="section-hint" style="margin-bottom:16px;">Control when runs need manual review before importing.</div>
+            <div class="radio-group" style="flex-direction:column; gap:12px;">
 
-          <div class="radio-group" style="flex-direction:column; gap:12px;">
-            <div class="radio-item" onclick="selApprovalMode('auto')">
-              <div class="radio-circle on" id="ap-auto"></div>
-              <span style="color:var(--neutral-11);">Auto-approve all runs</span>
-            </div>
-            <div class="radio-item" onclick="selApprovalMode('conditional')" style="align-items:flex-start;">
-              <div class="radio-circle" id="ap-conditional" style="margin-top:2px;"></div>
-              <div style="flex:1;">
-                <div style="color:var(--neutral-11);">Send for approval when any of these is true:</div>
+              <!-- Option 1: Auto-approve -->
+              <div class="radio-item" onclick="selApprovalMode('auto')">
+                <div class="radio-circle on" id="ap-auto"></div>
+                <span style="color:var(--neutral-11);">Auto-approve all runs</span>
+              </div>
 
-                <div id="ap-conditions" class="hidden" style="margin-top:12px; display:flex; flex-direction:column; gap:12px;">
-
-                  <div class="cond-block unchecked" id="cond-records-block">
-                    <div class="cond-label-row" onclick="toggleCond('records', event)">
-                      <input type="checkbox" class="cond-cb" id="cond-records-cb"/>
-                      <span class="cond-check"></span>
-                      <span>Record count is more than</span>
-                      <input class="input-field cond-inline-input" placeholder="e.g. 50,000" id="thresh-records" onclick="event.stopPropagation()" oninput="event.stopPropagation(); validateStep()" onblur="validateThreshold('records')"/>
-                      <span>records</span>
-                    </div>
-                    <div class="err-text" id="thresh-records-err" style="margin-left:26px;">Enter a whole number greater than 0.</div>
+              <!-- Option 2: Conditional — label on first line, "of:" + conditions on subsequent lines -->
+              <div style="display:flex; gap:8px; align-items:flex-start;">
+                <div class="radio-circle" id="ap-conditional" style="margin-top:2px; flex-shrink:0;" onclick="selApprovalMode('conditional')"></div>
+                <div style="flex:1;">
+                  <!-- Radio label row — "of:" appended inline when active -->
+                  <div style="cursor:pointer;" onclick="selApprovalMode('conditional')">
+                    <span style="color:var(--neutral-11);">Send for approval when a run crosses a limit</span><span id="ap-of-suffix" class="hidden" style="color:var(--neutral-7);"> of:</span>
                   </div>
 
-                  <div class="cond-block unchecked" id="cond-error-block">
-                    <div class="cond-label-row" onclick="toggleCond('error', event)">
-                      <input type="checkbox" class="cond-cb" id="cond-error-cb"/>
-                      <span class="cond-check"></span>
-                      <span>Error rate is more than</span>
-                      <div class="input-with-suffix" onclick="event.stopPropagation()">
-                        <input class="input-field cond-inline-input" placeholder="e.g. 5" id="thresh-error" oninput="event.stopPropagation(); validateStep()" onblur="validateThreshold('error')"/>
-                        <span class="input-suffix-label">%</span>
+                  <!-- Conditions block — revealed together with the "of:" suffix -->
+                  <div id="ap-conditions-wrap" class="hidden" style="margin-top:10px;">
+
+                    <!-- No-checkbox-selected error -->
+                    <div class="err-text" id="ap-no-cond-err" style="margin-bottom:8px;">Select at least one limit.</div>
+
+                    <!-- Checkbox: Number of records -->
+                    <div class="cond-block unchecked" id="cond-records-block" style="margin-bottom:10px;">
+                      <div class="cond-label-row" onclick="toggleCond('records', event)">
+                        <input type="checkbox" class="cond-cb" id="cond-records-cb"/>
+                        <span class="cond-check"></span>
+                        <span>Number of records</span>
                       </div>
+                      <div class="cond-config" style="margin-top:6px;">
+                        <span style="color:var(--neutral-7);">More than</span>
+                        <input class="input-field" placeholder="e.g. 50,000" id="thresh-records" oninput="validateStep()" onblur="validateThreshold('records')" style="width:140px;"/>
+                        <span style="color:var(--neutral-7);">records</span>
+                      </div>
+                      <div class="err-text" id="thresh-records-err" style="margin-left:26px;">Enter a value.</div>
                     </div>
-                    <div class="err-text" id="thresh-error-err" style="margin-left:26px;">Enter a number between 1 and 100.</div>
-                  </div>
 
+                    <!-- Checkbox: Error rate -->
+                    <div class="cond-block unchecked" id="cond-error-block">
+                      <div class="cond-label-row" onclick="toggleCond('error', event)">
+                        <input type="checkbox" class="cond-cb" id="cond-error-cb"/>
+                        <span class="cond-check"></span>
+                        <span>Error rate</span>
+                      </div>
+                      <div class="cond-config" style="margin-top:6px;">
+                        <span style="color:var(--neutral-7);">Over</span>
+                        <div class="input-with-suffix" style="display:inline-flex; position:relative; width:120px;">
+                          <input class="input-field" placeholder="e.g. 5" id="thresh-error" oninput="validateStep()" onblur="validateThreshold('error')" style="padding-right:28px;"/>
+                          <span class="input-suffix-label">%</span>
+                        </div>
+                        <span style="color:var(--neutral-7);">error rate</span>
+                      </div>
+                      <div class="err-text" id="thresh-error-err" style="margin-left:26px;">Enter a number between 0 and 100.</div>
+                    </div>
+
+                  </div><!-- /ap-conditions-wrap -->
                 </div>
               </div>
+
             </div>
           </div>
         </div>
-        </div><!-- /approval-policy-wrap -->
       </div>
 
       <!-- Step: Data to import -->
@@ -2479,7 +2251,7 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
           </div>
         </div>
         <div class="form-section">
-          <div class="section-label">Table pattern</div>
+          <div class="section-label">Table name</div>
           <div class="section-hint">Supports regex. Use * to match all tables</div>
           <div class="field-col" style="max-width:360px;">
             <input class="input-field" id="table-name-input" placeholder="e.g. customers_2026 or 2026_*" oninput="updateTablePreview()" style="width:100%;"/>
@@ -2493,12 +2265,15 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
                   <path d="M2 5l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </span>
-              <span><strong id="tbl-match-count">27</strong> tables matched <span style="color: var(--neutral-7);">· One table imported per run, in alphabetical order</span></span>
+              <span><strong id="tbl-match-count">27</strong> tables matched <span style="color: var(--neutral-7);">· sorted A–Z</span></span>
             </div>
 
-            <div style="font-size:13px; font-weight:500; color:var(--neutral-11); margin-bottom:8px;">Preview tables</div>
             <div class="tbl-nav-row">
-              <select id="tbl-nav-select" class="tbl-nav-select" onchange="tblNavSelect(this)"></select>
+              <div class="tbl-nav-pill">
+                <button class="tbl-nav-btn" id="tbl-nav-prev" onclick="tblNav(-1)" aria-label="Previous table">&lsaquo;</button>
+                <span class="tbl-current-name" id="tbl-current-name">customers_2024</span>
+                <button class="tbl-nav-btn" id="tbl-nav-next" onclick="tblNav(1)" aria-label="Next table">&rsaquo;</button>
+              </div>
               <span class="tbl-position"><span id="tbl-pos-current">1</span> of <span id="tbl-pos-total">27</span></span>
             </div>
 
@@ -2529,14 +2304,21 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
       <div class="step-pane hidden" id="sp-profile">
         <div class="form-section">
           <div class="section-label">Data profile</div>
-          <div class="field-col" style="max-width:375px; margin-top:8px;">
-            <div class="select-field">
+          <div class="field-col" style="max-width:375px; margin-top:8px; position:relative;">
+            <div class="select-field" id="profile-trigger" onclick="toggleProfileMenu(event)">
               <span id="profile-val">Loyalty customers</span>
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg>
             </div>
+            <div class="dropdown-menu hidden" id="profile-menu">
+              <div class="dd-item" onclick="selProfile('Loyalty customers')">Loyalty customers</div>
+              <div class="dd-item" onclick="selProfile('Promotion points')">Promotion points</div>
+              <div class="dd-item" onclick="selProfile('Points expiry')">Points expiry</div>
+            </div>
           </div>
         </div>
-        <div class="form-section">
+
+        <!-- Import method — default (Insert / Update / Upsert) -->
+        <div class="form-section" id="method-default">
           <div class="section-label">Import method</div>
           <div class="method-row" style="margin-top:12px;">
             <button class="method-card" onclick="selMethod(this)"><div class="method-title">Insert</div><div class="method-desc">Adds new records only; skips if record with the same ID already exists in the system</div></button>
@@ -2544,8 +2326,19 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
             <button class="method-card on" onclick="selMethod(this)"><div class="m-chk"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="white" stroke-width="2"><path d="M2 5l2.5 2.5 4-4"/></svg></div><div class="method-title">Upsert</div><div class="method-desc">Updates existing records if IDs match; otherwise adds new ones</div></button>
           </div>
         </div>
+
+        <!-- Import method — Points expiry (Update only) -->
+        <div class="form-section hidden" id="method-expiry">
+          <div class="section-label">Import method</div>
+          <div class="method-row" style="margin-top:12px;">
+            <button class="method-card on" onclick="selMethod(this)"><div class="m-chk"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="white" stroke-width="2"><path d="M2 5l2.5 2.5 4-4"/></svg></div><div class="method-title">Update</div><div class="method-desc">Updates the points expiry of records that match the unique ID. Skips record if no match is found</div></button>
+          </div>
+        </div>
+
         <div style="height:1px;background:var(--neutral-3);margin-bottom:var(--sp8);"></div>
-        <div class="form-section">
+
+        <!-- Additional configurations — default (Unique ID) -->
+        <div class="form-section" id="addl-default">
           <div class="section-label">Additional configurations</div>
           <div style="margin-top:var(--sp5);">
             <div class="field-label" style="margin-bottom:4px;">Unique ID</div>
@@ -2554,6 +2347,68 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
               <div class="radio-item" onclick="selRadio(this,'uid')"><div class="radio-circle" id="uid-email"></div>Email address</div>
               <div class="radio-item" onclick="selRadio(this,'uid')"><div class="radio-circle on" id="uid-mobile"></div>Mobile number</div>
               <div class="radio-item" onclick="selRadio(this,'uid')"><div class="radio-circle" id="uid-ext"></div>External ID</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional configurations — Points expiry -->
+        <div class="form-section hidden" id="addl-expiry">
+          <div class="section-label">Additional configurations</div>
+
+          <!-- Two-column grid: equal columns fill the width, uniform column + row gaps -->
+          <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:40px; row-gap:28px; margin-top:var(--sp5);">
+
+            <!-- Loyalty program (read-only) -->
+            <div class="field-col">
+              <div class="field-label">Loyalty program</div>
+              <div class="select-field" style="background:var(--neutral-1); color:var(--neutral-6); cursor:not-allowed; pointer-events:none; margin-top:var(--sp1);" aria-disabled="true">
+                <span>AwesomeDefaultProgram</span>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--neutral-5)" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg>
+              </div>
+            </div>
+
+            <!-- Customer's unique ID -->
+            <div class="field-col" style="position:relative;">
+              <div class="field-label">Customer's unique ID</div>
+              <div class="select-field" id="uid-expiry-trigger" onclick="toggleUidExpiryMenu(event)" style="margin-top:var(--sp1);">
+                <span id="uid-expiry-val">MOBILE</span>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg>
+              </div>
+              <div class="dropdown-menu hidden" id="uid-expiry-menu">
+                <div class="dd-item" onclick="selUidExpiry('MOBILE')">MOBILE</div>
+                <div class="dd-item" onclick="selUidExpiry('EXTERNAL_ID')">EXTERNAL_ID</div>
+                <div class="dd-item" onclick="selUidExpiry('USER_ID')">USER_ID</div>
+                <div class="dd-item" onclick="selUidExpiry('EMAIL')">EMAIL</div>
+              </div>
+            </div>
+
+            <!-- Points type -->
+            <div class="field-col">
+              <div class="field-label" style="display:flex; align-items:center; gap:6px;">
+                Points type
+                <span class="info-tooltip" data-tip="Imports support one points type. Separate regular and promised into different tables">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="7" cy="7" r="5.5"/><path d="M7 6v4" stroke-linecap="round"/><circle cx="7" cy="4.2" r="0.6" fill="currentColor" stroke="none"/></svg>
+                </span>
+              </div>
+              <div class="radio-group" style="margin-top:var(--sp3);">
+                <div class="radio-item" onclick="selRadio(this,'pt')"><div class="radio-circle on" id="pt-regular"></div>Regular</div>
+                <div class="radio-item" onclick="selRadio(this,'pt')"><div class="radio-circle" id="pt-promised"></div>Promised</div>
+              </div>
+            </div>
+
+            <!-- Choose expiry type -->
+            <div class="field-col">
+              <div class="field-label">Expiry update type</div>
+              <div class="radio-group" style="margin-top:var(--sp3);">
+                <div class="radio-item" onclick="selRadio(this,'et')"><div class="radio-circle on" id="et-early"></div>Shorten expiry</div>
+                <div class="radio-item" onclick="selRadio(this,'et')"><div class="radio-circle" id="et-extend"></div>Extend expiry</div>
+              </div>
+            </div>
+
+            <!-- Reason for updating points expiry (description) — column 1 -->
+            <div class="field-col">
+              <div class="field-label">Reason for updating points expiry</div>
+              <textarea class="textarea-field" id="expiry-reason" placeholder="Add a reason for this points expiry update" style="margin-top:var(--sp1);"></textarea>
             </div>
           </div>
         </div>
@@ -2691,151 +2546,28 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
           </div>
         </div>
 
-        <div class="config-sum-card" style="max-width:none;">
-          <div class="config-sum-card-title">Configuration summary</div>
-
-          <div class="config-sum-section" id="rev-runconfig-sec">
-            <h3 class="config-sum-title">Job setup</h3>
-            <div class="config-sum-row">
-              <div class="config-sum-field">
-                <div class="config-sum-label">Job type</div>
-                <div class="config-sum-value" id="rev-type">Recurring</div>
-              </div>
-              <div class="config-sum-field rev-rec-only">
-                <div class="config-sum-label">Frequency</div>
-                <div class="config-sum-value">Daily at 02:00 AM<span class="tz-info"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></div>
-              </div>
-              <div class="config-sum-field rev-rec-only">
-                <div class="config-sum-label">Start date</div>
-                <div class="config-sum-value">15 Jan, 2025<span class="tz-info"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></div>
-              </div>
-              <div class="config-sum-field rev-rec-only">
-                <div class="config-sum-label">End date</div>
-                <div class="config-sum-value">31 Dec, 2026<span class="tz-info"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></div>
-              </div>
-              <div class="config-sum-field rev-rec-only">
-                <div class="config-sum-label">Run approval</div>
-                <div class="config-sum-value">Auto-approve if errors &lt; 1%</div>
-              </div>
-            </div>
+        <div class="config-card">
+          <div class="config-card-head">Configuration summary</div>
+          <div class="config-section" id="rev-runconfig-sec">
+            <div class="config-section-head"><span>Run configuration</span><button class="edit-link" onclick="jump(0)">Edit</button></div>
+            <dl class="kv-grid">
+              <dt>Import type</dt><dd id="rev-type">Recurring</dd>
+              <dt>Frequency</dt><dd>Every day at 3:00 PM</dd>
+              <dt>Schedule window</dt><dd>Starts immediately, no end date</dd>
+              <dt>Run approval</dt><dd>All runs auto-approved</dd>
+            </dl>
           </div>
-
-          <div class="config-sum-section">
-            <h3 class="config-sum-title">Data to import</h3>
-            <div class="config-sum-row">
-              <div class="config-sum-field">
-                <div class="config-sum-label">Import data from</div>
-                <div class="config-sum-value">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--neutral-11)" style="flex-shrink:0;"><path d="M8 1L1 4l7 3 7-3-7-3zm-7 5v2l7 3 7-3V6L8 9 1 6zm0 4v2l7 3 7-3v-2L8 13l-7-3z"/></svg>
-                  Databricks
-                </div>
-              </div>
-              <div class="config-sum-field">
-                <div class="config-sum-label">Databricks table</div>
-                <div class="config-sum-value">my_catalog.my_schema.customers</div>
-              </div>
-              <div class="config-sum-field">
-                <div class="config-sum-label">Total records</div>
-                <div class="config-sum-value">2.32M total, 2.18M unique</div>
-              </div>
-            </div>
+          <div class="config-section">
+            <div class="config-section-head"><span>Data to import</span><button class="edit-link" onclick="jump(isRec?1:0)">Edit</button></div>
+            <dl class="kv-grid"><dt>Data source</dt><dd>Databricks</dd><dt>Table</dt><dd>customer_master_2024</dd></dl>
           </div>
-
-          <div class="config-sum-section">
-            <h3 class="config-sum-title">Profile and method</h3>
-            <div class="config-sum-row">
-              <div class="config-sum-field">
-                <div class="config-sum-label">Data profile</div>
-                <div class="config-sum-value">Customer</div>
-              </div>
-              <div class="config-sum-field">
-                <div class="config-sum-label">Import method</div>
-                <div class="config-sum-value">Upsert</div>
-              </div>
-            </div>
-            <div>
-              <div class="config-sum-subtitle">Additional configurations</div>
-              <div class="config-sum-row">
-                <div class="config-sum-field">
-                  <div class="config-sum-label">Default store</div>
-                  <div class="config-sum-value">HSR <span class="cfg-muted">(1028273)</span></div>
-                </div>
-              </div>
-            </div>
-            <button class="config-sum-toggle" onclick="toggleCfgAddl(this)">
-              <span>Hide additional configurations</span>
-              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 5l4-4 4 4"/></svg>
-            </button>
+          <div class="config-section">
+            <div class="config-section-head"><span>Profile and method</span><button class="edit-link" onclick="jump(isRec?2:1)">Edit</button></div>
+            <dl class="kv-grid"><dt>Data profile</dt><dd>Customer</dd><dt>Import method</dt><dd>Upsert</dd></dl>
           </div>
-
-          <div class="config-sum-section">
-            <h3 class="config-sum-title">Fields mapping</h3>
-            <div class="config-sum-row" style="margin-bottom:14px;">
-              <div class="config-sum-field">
-                <div class="config-sum-label">Field/column mappings</div>
-                <div class="config-sum-value">14/14 fields mapped</div>
-              </div>
-            </div>
-            <div class="config-sum-row" style="margin-bottom:18px;">
-              <div class="config-sum-field">
-                <div class="config-sum-label">Mapping</div>
-                <div class="config-sum-value">Customers - Upsert 2025</div>
-              </div>
-            </div>
-            <div>
-            <table class="config-sum-table">
-              <thead>
-                <tr>
-                  <th style="width:30%;">Fields of source data to be imported</th>
-                  <th style="width:30%;">Customer profile fields</th>
-                  <th style="width:15%;">Required <span class="tz-info"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Required fields must be mapped for the import to proceed</span></span></th>
-                  <th style="width:25%;"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>source_first_name</td>
-                  <td>First name<span class="req-star">*</span></td>
-                  <td><span class="req-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="var(--green-7)" stroke-width="1.4"/><path d="M5.5 9l2.4 2.4L12.5 6.8" stroke="var(--green-7)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></td>
-                  <td><span class="fallback-tag">Fallback: <strong>Friend</strong></span></td>
-                </tr>
-                <tr>
-                  <td>source_last_name</td>
-                  <td>Last name<span class="req-star">*</span></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>source_reg_date</td>
-                  <td>Customer registration date<span class="req-star">*</span></td>
-                  <td><span class="req-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="var(--green-7)" stroke-width="1.4"/><path d="M5.5 9l2.4 2.4L12.5 6.8" stroke="var(--green-7)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>source_reg_type</td>
-                  <td>Customer registration source<span class="req-star">*</span></td>
-                  <td><span class="req-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="var(--green-7)" stroke-width="1.4"/><path d="M5.5 9l2.4 2.4L12.5 6.8" stroke="var(--green-7)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></td>
-                  <td><span class="fallback-tag">Fallback: <strong>Store</strong></span></td>
-                </tr>
-                <tr>
-                  <td>source_age</td>
-                  <td>Customer age<span class="req-star">*</span></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>source_store</td>
-                  <td>Customer registration store<span class="req-star">*</span></td>
-                  <td><span class="req-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="var(--green-7)" stroke-width="1.4"/><path d="M5.5 9l2.4 2.4L12.5 6.8" stroke="var(--green-7)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-            </div>
-            <button class="config-sum-toggle" onclick="toggleCfgMapping(this)">
-              <span>Hide mapping</span>
-              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 5l4-4 4 4"/></svg>
-            </button>
+          <div class="config-section">
+            <div class="config-section-head"><span>Fields mapping</span><button class="edit-link" onclick="jump(isRec?3:2)">Edit</button></div>
+            <dl class="kv-grid"><dt>Mapped fields</dt><dd>6 fields (1 required, 5 optional)</dd></dl>
           </div>
         </div>
       </div>
@@ -2868,16 +2600,20 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
               <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4l-6 6 6 6"/></svg>
             </div>
             <div class="detail-title" id="det-name">Customer data migration Q4-2024</div>
+            <div class="detail-status-inline">
+              <span id="det-dot" style="width:8px;height:8px;border-radius:50%;background:var(--green-7);display:inline-block;"></span>
+              <span id="det-status-txt">Import in progress</span>
+            </div>
           </div>
           <div class="detail-meta">
-            <span>Job ID <strong id="det-id">291726</strong><button class="copy-btn" onclick="copyText(document.getElementById('det-id').textContent, this, event)" title="Copy Job ID"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></span>
+            <span>Job ID <strong id="det-id">291726</strong></span>
             <span class="pipe">|</span>
-            <span>Type <strong id="det-type">Recurring</strong><span id="det-cadence" style="color:var(--neutral-10); font-weight:500; font-size:12px;"> (Daily at 02:00 AM)</span></span>
-            <span class="pipe det-recurring-only">|</span>
-            <span class="det-recurring-only">Next run <strong id="det-next-run">23 May, 2026 02:00 AM</strong><span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></span>
+            <span>Type <strong id="det-type">Recurring</strong></span>
+            <span class="pipe" id="det-freq-pipe">|</span>
+            <span id="det-freq-wrap">Frequency <strong id="det-freq">Every day at 2:00 AM</strong></span>
           </div>
         </div>
-        <div class="detail-actions" id="detail-actions">
+        <div class="detail-actions">
           <button class="btn-pause" id="btn-pause-resume" onclick="handlePauseResume()">
             <svg id="pause-icon" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="2" width="3" height="10" rx="1"/><rect x="8" y="2" width="3" height="10" rx="1"/></svg>
             <svg id="resume-icon" class="hidden" width="13" height="13" viewBox="0 0 14 14" fill="currentColor"><path d="M3 2v10l9-5z"/></svg>
@@ -2886,34 +2622,32 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
           <button class="btn-stop" id="btn-stop" onclick="showStopModal()">Stop</button>
         </div>
       </div>
-      <div class="runs-dashboard" style="padding: 16px 0 4px; margin-left: 28px;">
-        <div class="runs-dash-card">
-          <div class="runs-dash-value">24</div>
-          <div class="runs-dash-label">Total runs</div>
-          <div class="runs-dash-sub">since Mar 09, 2025</div>
+      <!-- Dashboard summary cards — job-level health, above tabs -->
+      <div class="dash-cards-row">
+        <div class="dash-card">
+          <div class="dash-card-label">Total runs</div>
+          <div class="dash-card-value">11</div>
+          <div class="dash-card-sub">2 active · 1 awaiting</div>
         </div>
-        <div class="runs-dash-card">
-          <div class="runs-dash-value">8</div>
-          <div class="runs-dash-label">Tables picked</div>
-          <div class="runs-dash-sub">last picked May 18, 2026</div>
+        <div class="dash-card">
+          <div class="dash-card-label">Tables picked</div>
+          <div class="dash-card-value">27</div>
+          <div class="dash-card-sub">From Databricks</div>
         </div>
-        <div class="runs-dash-card">
-          <div class="runs-dash-value">17.43M</div>
-          <div class="runs-dash-label">Imported records</div>
-          <div class="runs-dash-sub">out of 22.71M valid</div>
+        <div class="dash-card">
+          <div class="dash-card-label">Records imported</div>
+          <div class="dash-card-value">23.4M</div>
+          <div class="dash-card-sub">Across completed runs</div>
         </div>
-        <div class="runs-dash-card">
-          <div class="runs-dash-value warning">0.34%</div>
-          <div class="runs-dash-label">Error rate</div>
-          <div class="runs-dash-sub">77,832 total errors</div>
-        </div>
-        <div class="runs-dash-card">
-          <div class="runs-dash-value">14m 38s</div>
-          <div class="runs-dash-label">Avg run duration</div>
+        <div class="dash-card">
+          <div class="dash-card-label">Error rate</div>
+          <div class="dash-card-value">0.34%</div>
+          <div class="dash-card-sub">Last completed run</div>
         </div>
       </div>
+
       <div class="tab-bar">
-        <div class="tab-item active" id="tab-label-first" onclick="switchTab(this,'runs')">Scheduled runs</div>
+        <div class="tab-item active" onclick="switchTab(this,'runs')">Scheduled runs</div>
         <div class="tab-item" onclick="switchTab(this,'config')">Configuration summary</div>
       </div>
     </div><!-- /detail-head -->
@@ -2921,288 +2655,220 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
     <div class="detail-body">
       <div id="tab-runs">
         <div class="runs-wrap">
-          <table class="runs-table">
+          <table class="runs-table" style="table-layout:fixed;">
+            <colgroup>
+              <col style="width:190px;">
+              <col style="width:160px;">
+              <col style="width:116px;">
+              <col style="width:148px;">
+              <col style="width:148px;">
+              <col style="width:120px;">
+              <col style="width:44px;">
+            </colgroup>
             <thead>
-            <thead>
-              <tr><th>Run ID <span class="th-sub">Table picked</span></th><th>Started on <span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span><span class="th-sub">Duration</span></th><th>Status</th><th class="num-cell">Valid records <span class="th-sub">Source records</span></th><th class="num-cell">Imported records <span class="th-sub">Valid records</span></th><th class="num-cell">Error records <span class="th-sub">% of source</span></th><th></th></tr>
+              <tr>
+                <th>Run ID<span class="th-sub">Triggered on (IST)</span></th>
+                <th>Status</th>
+                <th class="num-cell">Source records</th>
+                <th class="num-cell">Valid records<span class="th-sub">/ Source</span></th>
+                <th class="num-cell">Imported records<span class="th-sub">/ Valid</span></th>
+                <th class="num-cell">Errors<span class="th-sub">% of source</span></th>
+                <th></th>
+              </tr>
             </thead>
             <tbody>
-              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8821','25 Apr, 2026 02:00 AM','validating',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)"><td><div class="cell-name">RUN-8821</div><div class="cell-sub-row"><span class="cell-sub truncate" title="customers_2024">customers_2024</span><button class="copy-btn" onclick="copyText('customers_2024', this, event)" title="Copy"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td><td><div class="cell-name">25 Apr, 2026 02:00 AM</div><div class="cell-sub">10m 02s <span style="color:var(--neutral-6);">(ongoing)</span></div></td><td><div class="status-dot"><div class="dot dot-yellow"></div>Validating</div></td><td class="num-cell"><div>—</div><div class="cell-sub">2,410,000</div></td><td class="num-cell"><div>—</div><div class="cell-sub">—</div></td><td class="num-cell">—</td><td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8821')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8821"><button class="row-overflow-item disabled" disabled>Re-run unavailable</button></div></div></td></tr>
-              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8820','24 Apr, 2026 02:00 AM','awaiting',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)"><td><div class="cell-name">RUN-8820</div><div class="cell-sub-row"><span class="cell-sub truncate" title="customers_2024_archived_export_batch_01">customers_2024_archived_export_batch_01</span><button class="copy-btn" onclick="copyText('customers_2024_archived_export_batch_01', this, event)" title="Copy"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td><td><div class="cell-name">24 Apr, 2026 02:00 AM</div><div class="cell-sub">13m 48s</div></td><td><div class="status-dot"><div class="dot dot-orange"></div>Awaiting approval</div></td><td class="num-cell"><div>2,317,753</div><div class="cell-sub">2,319,000</div></td><td class="num-cell"><div>—</div><div class="cell-sub">2,317,753</div></td><td class="num-cell"><div class="cell-name"><span class="num-error">1,247</span></div><div class="cell-sub">0.05%</div></td><td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8820')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8820"><button class="row-overflow-item disabled" disabled>Re-run unavailable</button></div></div></td></tr>
-              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8819','23 Apr, 2026 02:00 AM','completed',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)"><td><div class="cell-name">RUN-8819</div><div class="cell-sub-row"><span class="cell-sub truncate" title="customers_2025">customers_2025</span><button class="copy-btn" onclick="copyText('customers_2025', this, event)" title="Copy"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td><td><div class="cell-name">23 Apr, 2026 02:00 AM</div><div class="cell-sub">22m 14s</div></td><td><div class="status-dot"><div class="dot dot-gray"></div>Completed with errors</div></td><td class="num-cell"><div>2,274,769</div><div class="cell-sub">2,320,000</div></td><td class="num-cell"><div>2,251,097</div><div class="cell-sub">2,274,769</div></td><td class="num-cell"><div class="cell-name">68,903</div><div class="cell-sub">2.97%</div></td><td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8819')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8819"><button class="row-overflow-item disabled" disabled>Re-run unavailable</button></div></div></td></tr>
-              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8818','22 Apr, 2026 02:00 AM','in-progress',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)"><td><div class="cell-name">RUN-8818</div><div class="cell-sub-row"><span class="cell-sub truncate" title="customers_2025_beta">customers_2025_beta</span><button class="copy-btn" onclick="copyText('customers_2025_beta', this, event)" title="Copy"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td><td><div class="cell-name">22 Apr, 2026 02:00 AM</div><div class="cell-sub">14m 32s <span style="color:var(--neutral-6);">(ongoing)</span></div></td><td><div class="status-dot"><div class="dot dot-green"></div>Import in progress</div></td><td class="num-cell"><div>2,288,108</div><div class="cell-sub">2,290,000</div></td><td class="num-cell"><div>1,425,331</div><div class="cell-sub">2,288,108</div></td><td class="num-cell"><div class="cell-name">1,939</div><div class="cell-sub">0.08%</div></td><td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8818')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8818"><button class="row-overflow-item" onclick="alert('Re-run triggered for RUN-8818')">Re-run</button></div></div></td></tr>
-              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8817','21 Apr, 2026 02:00 AM','rejected',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)"><td><div class="cell-name">RUN-8817</div><div class="cell-sub-row"><span class="cell-sub truncate" title="customers_2026">customers_2026</span><button class="copy-btn" onclick="copyText('customers_2026', this, event)" title="Copy"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td><td><div class="cell-name">21 Apr, 2026 02:00 AM</div><div class="cell-sub">13m 48s</div></td><td><div class="status-dot"><div class="dot dot-red"></div>Rejected</div></td><td class="num-cell"><div>2,306,579</div><div class="cell-sub">2,310,000</div></td><td class="num-cell"><div>—</div><div class="cell-sub">2,306,579</div></td><td class="num-cell"><div class="cell-name">3,421</div><div class="cell-sub">0.15%</div></td><td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8817')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8817"><button class="row-overflow-item" onclick="alert('Re-run triggered for RUN-8817')">Re-run</button></div></div></td></tr>
-              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8816','20 Apr, 2026 02:00 AM','completed',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)"><td><div class="cell-name">RUN-8816</div><div class="cell-sub-row"><span class="cell-sub truncate" title="customers_2024">customers_2024</span><button class="copy-btn" onclick="copyText('customers_2024', this, event)" title="Copy"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td><td><div class="cell-name">20 Apr, 2026 02:00 AM</div><div class="cell-sub">21m 02s</div></td><td><div class="status-dot"><div class="dot dot-gray"></div>Completed with errors</div></td><td class="num-cell"><div>2,279,760</div><div class="cell-sub">2,280,000</div></td><td class="num-cell"><div>2,279,520</div><div class="cell-sub">2,279,760</div></td><td class="num-cell"><div class="cell-name">480</div><div class="cell-sub">0.02%</div></td><td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8816')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8816"><button class="row-overflow-item disabled" disabled>Re-run unavailable</button></div></div></td></tr>
-              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8815','19 Apr, 2026 02:00 AM','failed',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)"><td><div class="cell-name">RUN-8815</div><div class="cell-sub-row"><span class="cell-sub truncate" title="customers_2024_archived_export_batch_01">customers_2024_archived_export_batch_01</span><button class="copy-btn" onclick="copyText('customers_2024_archived_export_batch_01', this, event)" title="Copy"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td><td><div class="cell-name">19 Apr, 2026 02:00 AM</div><div class="cell-sub">7m 21s</div></td><td><div class="status-dot"><div class="dot dot-red"></div>Import failed</div></td><td class="num-cell"><div>2,299,488</div><div class="cell-sub">2,300,000</div></td><td class="num-cell"><div>—</div><div class="cell-sub">2,299,488</div></td><td class="num-cell"><div class="cell-name">512</div><div class="cell-sub">0.02%</div></td><td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8815')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8815"><button class="row-overflow-item" onclick="alert('Re-run triggered for RUN-8815')">Re-run</button></div></div></td></tr>
-              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8814','18 Apr, 2026 02:00 AM','completed',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)"><td><div class="cell-name">RUN-8814</div><div class="cell-sub-row"><span class="cell-sub truncate" title="customers_2025">customers_2025</span><button class="copy-btn" onclick="copyText('customers_2025', this, event)" title="Copy"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td><td><div class="cell-name">18 Apr, 2026 02:00 AM</div><div class="cell-sub">19m 47s</div></td><td><div class="status-dot"><div class="dot dot-gray"></div>Completed with errors</div></td><td class="num-cell"><div>2,269,789</div><div class="cell-sub">2,269,789</div></td><td class="num-cell"><div>2,269,578</div><div class="cell-sub">2,269,789</div></td><td class="num-cell"><div class="cell-name">211</div><div class="cell-sub">0.01%</div></td><td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8814')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8814"><button class="row-overflow-item disabled" disabled>Re-run unavailable</button></div></div></td></tr>
-              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8813','17 Apr, 2026 02:00 AM','validation-failed',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)"><td><div class="cell-name">RUN-8813</div><div class="cell-sub-row"><span class="cell-sub truncate" title="customers_2025_beta">customers_2025_beta</span><button class="copy-btn" onclick="copyText('customers_2025_beta', this, event)" title="Copy"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td><td><div class="cell-name">17 Apr, 2026 02:00 AM</div><div class="cell-sub">4m 12s</div></td><td><div class="status-dot"><div class="dot dot-red"></div>Validation failed</div></td><td class="num-cell"><div>—</div><div class="cell-sub">2,260,000</div></td><td class="num-cell"><div>—</div><div class="cell-sub">—</div></td><td class="num-cell">—</td><td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8813')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8813"><button class="row-overflow-item" onclick="alert('Re-run triggered for RUN-8813')">Re-run</button></div></div></td></tr>
-              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8812','16 Apr, 2026 02:00 AM','completed',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)"><td><div class="cell-name">RUN-8812</div><div class="cell-sub-row"><span class="cell-sub truncate" title="customers_2026">customers_2026</span><button class="copy-btn" onclick="copyText('customers_2026', this, event)" title="Copy"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></div></td><td><div class="cell-name">16 Apr, 2026 02:00 AM</div><div class="cell-sub">24m 18s</div></td><td><div class="status-dot"><div class="dot dot-gray"></div>Completed with errors</div></td><td class="num-cell"><div>2,248,000</div><div class="cell-sub">2,250,000</div></td><td class="num-cell"><div>2,246,109</div><div class="cell-sub">2,248,000</div></td><td class="num-cell"><div class="cell-name">3,891</div><div class="cell-sub">0.17%</div></td><td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8812')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8812"><button class="row-overflow-item disabled" disabled>Re-run unavailable</button></div></div></td></tr>
+              <!-- RUN-8821 · Validating (in progress) -->
+              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8821','25 Apr, 2026 02:00:00 AM','in-progress',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)">
+                <td><div class="cell-name" style="font-family:ui-monospace,monospace;font-size:13px;">RUN-8821</div><div class="cell-sub">25 Apr, 2026 · 02:00 AM</div></td>
+                <td><div class="status-dot"><div class="dot dot-yellow"></div>Validating</div></td>
+                <td class="num-cell">2,410,000</td>
+                <td class="num-cell"><span class="calculating">Validating…</span><div class="cell-sub-num">/ 2,410,000</div></td>
+                <td class="num-cell" style="color:var(--neutral-5);">—</td>
+                <td class="num-cell" style="color:var(--neutral-5);">—</td>
+                <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8821')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8821"><button class="row-overflow-item disabled" disabled>Re-run unavailable</button></div></div></td>
+              </tr>
+              <!-- RUN-8825 · Awaiting approval -->
+              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8825','26 Apr, 2026 02:00:00 AM','awaiting',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)">
+                <td><div class="cell-name" style="font-family:ui-monospace,monospace;font-size:13px;">RUN-8825</div><div class="cell-sub">26 Apr, 2026 · 02:00 AM</div></td>
+                <td><div class="status-dot"><div class="dot dot-orange"></div>Awaiting approval</div></td>
+                <td class="num-cell">2,300,000</td>
+                <td class="num-cell"><div>2,235,679</div><div class="cell-sub-num">/ 2,300,000</div></td>
+                <td class="num-cell" style="color:var(--neutral-5);">—</td>
+                <td class="num-cell"><div class="num-error">64,321</div><div class="cell-sub-num">2.79%</div></td>
+                <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8825')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8825"><button class="row-overflow-item disabled" disabled>Re-run unavailable</button></div></div></td>
+              </tr>
+              <!-- RUN-8820 · Completed clean -->
+              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8820','24 Apr, 2026 02:00:00 AM','completed',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)">
+                <td><div class="cell-name" style="font-family:ui-monospace,monospace;font-size:13px;">RUN-8820</div><div class="cell-sub">24 Apr, 2026 · 02:00 AM</div></td>
+                <td><div class="status-dot"><div class="dot dot-gray"></div>Completed</div></td>
+                <td class="num-cell">2,320,000</td>
+                <td class="num-cell"><div>2,319,000</div><div class="cell-sub-num">/ 2,320,000</div></td>
+                <td class="num-cell"><div>2,319,000</div><div class="cell-sub-num">/ 2,319,000 valid</div></td>
+                <td class="num-cell"><div class="num-zero">0</div><div class="cell-sub-num">0.00%</div></td>
+                <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8820')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8820"><button class="row-overflow-item disabled" disabled>Re-run unavailable</button></div></div></td>
+              </tr>
+              <!-- RUN-8819 · Completed with errors (big errors) -->
+              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8819','23 Apr, 2026 02:00:00 AM','completed',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)">
+                <td><div class="cell-name" style="font-family:ui-monospace,monospace;font-size:13px;">RUN-8819</div><div class="cell-sub">23 Apr, 2026 · 02:00 AM</div></td>
+                <td><div class="status-dot"><div class="dot dot-gray"></div>Completed with errors</div></td>
+                <td class="num-cell">2,320,000</td>
+                <td class="num-cell"><div>2,308,000</div><div class="cell-sub-num">/ 2,320,000</div></td>
+                <td class="num-cell"><div>2,306,566</div><div class="cell-sub-num">/ 2,308,000 valid</div></td>
+                <td class="num-cell"><div>13,434</div><div class="cell-sub-num">0.58%</div></td>
+                <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8819')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8819"><button class="row-overflow-item disabled" disabled>Re-run unavailable</button></div></div></td>
+              </tr>
+              <!-- RUN-8818 · Rejected -->
+              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8818','22 Apr, 2026 02:00:00 AM','rejected',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)">
+                <td><div class="cell-name" style="font-family:ui-monospace,monospace;font-size:13px;">RUN-8818</div><div class="cell-sub">22 Apr, 2026 · 02:00 AM</div></td>
+                <td><div class="status-dot"><div class="dot dot-red"></div>Rejected</div></td>
+                <td class="num-cell">2,290,000</td>
+                <td class="num-cell"><div>2,288,000</div><div class="cell-sub-num">/ 2,290,000</div></td>
+                <td class="num-cell" style="color:var(--neutral-5);">—</td>
+                <td class="num-cell" style="color:var(--neutral-5);">—</td>
+                <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8818')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8818"><button class="row-overflow-item" onclick="alert('Re-run triggered for RUN-8818')">Re-run</button></div></div></td>
+              </tr>
+              <!-- RUN-8817 · Completed with minor errors -->
+              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8817','21 Apr, 2026 02:00:00 AM','completed',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)">
+                <td><div class="cell-name" style="font-family:ui-monospace,monospace;font-size:13px;">RUN-8817</div><div class="cell-sub">21 Apr, 2026 · 02:00 AM</div></td>
+                <td><div class="status-dot"><div class="dot dot-gray"></div>Completed with errors</div></td>
+                <td class="num-cell">2,310,000</td>
+                <td class="num-cell"><div>2,309,898</div><div class="cell-sub-num">/ 2,310,000</div></td>
+                <td class="num-cell"><div>2,309,898</div><div class="cell-sub-num">/ 2,309,898 valid</div></td>
+                <td class="num-cell"><div>102</div><div class="cell-sub-num">0.004%</div></td>
+                <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8817')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8817"><button class="row-overflow-item disabled" disabled>Re-run unavailable</button></div></div></td>
+              </tr>
+              <!-- RUN-8816 · Completed with errors -->
+              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8816','20 Apr, 2026 02:00:00 AM','completed',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)">
+                <td><div class="cell-name" style="font-family:ui-monospace,monospace;font-size:13px;">RUN-8816</div><div class="cell-sub">20 Apr, 2026 · 02:00 AM</div></td>
+                <td><div class="status-dot"><div class="dot dot-gray"></div>Completed with errors</div></td>
+                <td class="num-cell">2,280,000</td>
+                <td class="num-cell"><div>2,279,760</div><div class="cell-sub-num">/ 2,280,000</div></td>
+                <td class="num-cell"><div>2,279,520</div><div class="cell-sub-num">/ 2,279,760 valid</div></td>
+                <td class="num-cell"><div>480</div><div class="cell-sub-num">0.02%</div></td>
+                <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8816')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8816"><button class="row-overflow-item disabled" disabled>Re-run unavailable</button></div></div></td>
+              </tr>
+              <!-- RUN-8815 · Import failed (partial validation) -->
+              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8815','19 Apr, 2026 02:00:00 AM','failed',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)">
+                <td><div class="cell-name" style="font-family:ui-monospace,monospace;font-size:13px;">RUN-8815</div><div class="cell-sub">19 Apr, 2026 · 02:00 AM</div></td>
+                <td><div class="status-dot"><div class="dot dot-red"></div>Import failed</div></td>
+                <td class="num-cell">2,300,000</td>
+                <td class="num-cell"><div style="color:var(--neutral-7);">910,000</div><div class="cell-sub-num">/ 2,300,000</div></td>
+                <td class="num-cell" style="color:var(--neutral-5);">—</td>
+                <td class="num-cell" style="color:var(--neutral-5);">—</td>
+                <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8815')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8815"><button class="row-overflow-item" onclick="alert('Re-run triggered for RUN-8815')">Re-run</button></div></div></td>
+              </tr>
+              <!-- RUN-8814 · Completed with errors -->
+              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8814','18 Apr, 2026 02:00:00 AM','completed',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)">
+                <td><div class="cell-name" style="font-family:ui-monospace,monospace;font-size:13px;">RUN-8814</div><div class="cell-sub">18 Apr, 2026 · 02:00 AM</div></td>
+                <td><div class="status-dot"><div class="dot dot-gray"></div>Completed with errors</div></td>
+                <td class="num-cell">2,270,000</td>
+                <td class="num-cell"><div>2,269,789</div><div class="cell-sub-num">/ 2,270,000</div></td>
+                <td class="num-cell"><div>2,269,578</div><div class="cell-sub-num">/ 2,269,789 valid</div></td>
+                <td class="num-cell"><div>422</div><div class="cell-sub-num">0.02%</div></td>
+                <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8814')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8814"><button class="row-overflow-item disabled" disabled>Re-run unavailable</button></div></div></td>
+              </tr>
+              <!-- RUN-8813 · Validation failed -->
+              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8813','17 Apr, 2026 02:00:00 AM','validation-failed',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)">
+                <td><div class="cell-name" style="font-family:ui-monospace,monospace;font-size:13px;">RUN-8813</div><div class="cell-sub">17 Apr, 2026 · 02:00 AM</div></td>
+                <td><div class="status-dot"><div class="dot dot-red"></div>Validation failed</div></td>
+                <td class="num-cell">2,260,000</td>
+                <td class="num-cell" style="color:var(--neutral-5);">—</td>
+                <td class="num-cell" style="color:var(--neutral-5);">—</td>
+                <td class="num-cell" style="color:var(--neutral-5);">—</td>
+                <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8813')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8813"><button class="row-overflow-item" onclick="alert('Re-run triggered for RUN-8813')">Re-run</button></div></div></td>
+              </tr>
+              <!-- RUN-8812 · Completed with notable errors -->
+              <tr style="cursor:pointer;" onclick="goRunDetail('RUN-8812','16 Apr, 2026 02:00:00 AM','completed',document.getElementById('det-name').textContent,document.getElementById('det-type').textContent)">
+                <td><div class="cell-name" style="font-family:ui-monospace,monospace;font-size:13px;">RUN-8812</div><div class="cell-sub">16 Apr, 2026 · 02:00 AM</div></td>
+                <td><div class="status-dot"><div class="dot dot-gray"></div>Completed with errors</div></td>
+                <td class="num-cell">2,250,000</td>
+                <td class="num-cell"><div>2,248,000</div><div class="cell-sub-num">/ 2,250,000</div></td>
+                <td class="num-cell"><div>2,246,109</div><div class="cell-sub-num">/ 2,248,000 valid</div></td>
+                <td class="num-cell"><div>3,891</div><div class="cell-sub-num">0.17%</div></td>
+                <td onclick="event.stopPropagation()"><div class="row-overflow-wrap"><button class="row-overflow-btn" onclick="toggleRowMenu(event,'menu-RUN-8812')" aria-label="Run actions"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="3" r="1.4"/><circle cx="8" cy="8" r="1.4"/><circle cx="8" cy="13" r="1.4"/></svg></button><div class="row-overflow-menu hidden" id="menu-RUN-8812"><button class="row-overflow-item disabled" disabled>Re-run unavailable</button></div></div></td>
+              </tr>
             </tbody>
           </table>
         </div>
       </div>
       <div id="tab-config" class="hidden">
-        <div class="config-sum">
-        <div class="config-sum-card">
-          <div class="config-sum-card-title">Configuration summary</div>
+        <div class="config-card" style="max-width:760px;">
+          <div class="config-card-head">Configuration summary</div>
 
-          <!-- ── Job setup ── -->
-          <div class="config-sum-section">
-            <h3 class="config-sum-title">Job setup</h3>
-            <div class="config-sum-row">
-              <div class="config-sum-field">
-                <div class="config-sum-label">Job type</div>
-                <div class="config-sum-value" id="cfg-job-type">Recurring</div>
-              </div>
-              <div class="config-sum-field cfg-rec-only">
-                <div class="config-sum-label">Frequency</div>
-                <div class="config-sum-value">Daily at 02:00 AM<span class="tz-info"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></div>
-              </div>
-              <div class="config-sum-field cfg-rec-only">
-                <div class="config-sum-label">Start date</div>
-                <div class="config-sum-value">15 Jan, 2025<span class="tz-info"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></div>
-              </div>
-              <div class="config-sum-field cfg-rec-only">
-                <div class="config-sum-label">End date</div>
-                <div class="config-sum-value">31 Dec, 2026<span class="tz-info"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></div>
-              </div>
-              <div class="config-sum-field cfg-rec-only">
-                <div class="config-sum-label">Run approval</div>
-                <div class="config-sum-value">Auto-approve if errors &lt; 1%</div>
-              </div>
+          <!-- Job setup -->
+          <div class="config-section">
+            <div class="config-section-head">
+              <span>Job setup</span>
             </div>
+            <dl class="kv-grid">
+              <dt>Job name</dt><dd id="cfg-job-name">Customer data migration Q4-2024</dd>
+              <dt>Job ID</dt><dd style="font-family:ui-monospace,monospace;font-size:13px;" id="cfg-job-id">291726</dd>
+            </dl>
           </div>
 
-          <!-- ── Data to import ── -->
-          <div class="config-sum-section">
-            <h3 class="config-sum-title">Data to import</h3>
-            <div class="config-sum-row">
-              <div class="config-sum-field">
-                <div class="config-sum-label">Import data from</div>
-                <div class="config-sum-value">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--neutral-11)" style="flex-shrink:0;"><path d="M8 1L1 4l7 3 7-3-7-3zm-7 5v2l7 3 7-3V6L8 9 1 6zm0 4v2l7 3 7-3v-2L8 13l-7-3z"/></svg>
-                  Databricks
-                </div>
-              </div>
-              <div class="config-sum-field">
-                <div class="config-sum-label">Databricks table</div>
-                <div class="config-sum-value">my_catalog.my_schema.customers</div>
-              </div>
-              <div class="config-sum-field">
-                <div class="config-sum-label">Total records</div>
-                <div class="config-sum-value">2.32M total, 2.18M unique</div>
-              </div>
+          <!-- Run configuration -->
+          <div class="config-section" id="cfg-runconfig-sec">
+            <div class="config-section-head">
+              <span>Run configuration</span>
             </div>
+            <dl class="kv-grid">
+              <dt>Import type</dt><dd id="cfg-type">Recurring</dd>
+              <dt>Frequency</dt>
+              <dd id="cfg-freq">Every day at 2:00 AM
+                <span class="tz-info" style="margin-left:5px;">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="7" cy="7" r="5.5"/><path d="M7 5.5v2.5" stroke-linecap="round"/><circle cx="7" cy="9.5" r="0.6" fill="currentColor" stroke="none"/></svg>
+                  <span class="tz-tip">Org timezone · IST (UTC+05:30)</span>
+                </span>
+              </dd>
+              <dt>Start date</dt>
+              <dd>Mar 09, 2025
+                <span class="tz-info" style="margin-left:5px;">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="7" cy="7" r="5.5"/><path d="M7 5.5v2.5" stroke-linecap="round"/><circle cx="7" cy="9.5" r="0.6" fill="currentColor" stroke="none"/></svg>
+                  <span class="tz-tip">Org timezone · IST (UTC+05:30)</span>
+                </span>
+              </dd>
+              <dt>End date</dt>
+              <dd>Runs indefinitely
+                <span class="tz-info" style="margin-left:5px;">
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="7" cy="7" r="5.5"/><path d="M7 5.5v2.5" stroke-linecap="round"/><circle cx="7" cy="9.5" r="0.6" fill="currentColor" stroke="none"/></svg>
+                  <span class="tz-tip">Org timezone · IST (UTC+05:30)</span>
+                </span>
+              </dd>
+              <dt>Run approval</dt><dd>Auto-approve all runs</dd>
+            </dl>
           </div>
 
-          <!-- ── Profile and method ── -->
-          <div class="config-sum-section">
-            <h3 class="config-sum-title">Profile and method</h3>
-            <div class="config-sum-row">
-              <div class="config-sum-field">
-                <div class="config-sum-label">Data profile</div>
-                <div class="config-sum-value">Customer</div>
-              </div>
-              <div class="config-sum-field">
-                <div class="config-sum-label">Import method</div>
-                <div class="config-sum-value">Upsert</div>
-              </div>
+          <!-- Data to import -->
+          <div class="config-section">
+            <div class="config-section-head">
+              <span>Data to import</span>
             </div>
-            <div id="cfg-addl-wrap">
-              <div class="config-sum-subtitle">Additional configurations</div>
-              <div class="config-sum-row">
-                <div class="config-sum-field">
-                  <div class="config-sum-label">Default store</div>
-                  <div class="config-sum-value">HSR <span class="cfg-muted">(1028273)</span></div>
-                </div>
-              </div>
-            </div>
-            <button class="config-sum-toggle" onclick="toggleCfgAddl(this)">
-              <span>Hide additional configurations</span>
-              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 5l4-4 4 4"/></svg>
-            </button>
+            <dl class="kv-grid">
+              <dt>Data source</dt><dd>Databricks</dd>
+              <dt>Table picked</dt><dd>customer_master_2024</dd>
+            </dl>
           </div>
 
-          <!-- ── Fields mapping ── -->
-          <div class="config-sum-section">
-            <h3 class="config-sum-title">Fields mapping</h3>
-            <div class="config-sum-row" style="margin-bottom:14px;">
-              <div class="config-sum-field">
-                <div class="config-sum-label">Field/column mappings</div>
-                <div class="config-sum-value">14/14 fields mapped</div>
-              </div>
+          <!-- Profile and method -->
+          <div class="config-section">
+            <div class="config-section-head">
+              <span>Profile and method</span>
             </div>
-            <div class="config-sum-row" style="margin-bottom:18px;">
-              <div class="config-sum-field">
-                <div class="config-sum-label">Mapping</div>
-                <div class="config-sum-value">Customers - Upsert 2025</div>
-              </div>
-            </div>
-            <div id="cfg-mapping-wrap">
-              <table class="config-sum-table">
-                <thead>
-                  <tr>
-                    <th style="width:30%;">Fields of source data to be imported</th>
-                    <th style="width:30%;">Customer profile fields</th>
-                    <th style="width:15%;">Required <span class="tz-info"><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Required fields must be mapped for the import to proceed</span></span></th>
-                    <th style="width:25%;"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>source_first_name</td>
-                    <td>First name<span class="req-star">*</span></td>
-                    <td><span class="req-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="var(--green-7)" stroke-width="1.4"/><path d="M5.5 9l2.4 2.4L12.5 6.8" stroke="var(--green-7)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></td>
-                    <td><span class="fallback-tag">Fallback: <strong>Friend</strong></span></td>
-                  </tr>
-                  <tr>
-                    <td>source_last_name</td>
-                    <td>Last name<span class="req-star">*</span></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>source_reg_date</td>
-                    <td>Customer registration date<span class="req-star">*</span></td>
-                    <td><span class="req-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="var(--green-7)" stroke-width="1.4"/><path d="M5.5 9l2.4 2.4L12.5 6.8" stroke="var(--green-7)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>source_reg_type</td>
-                    <td>Customer registration source<span class="req-star">*</span></td>
-                    <td><span class="req-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="var(--green-7)" stroke-width="1.4"/><path d="M5.5 9l2.4 2.4L12.5 6.8" stroke="var(--green-7)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></td>
-                    <td><span class="fallback-tag">Fallback: <strong>Store</strong></span></td>
-                  </tr>
-                  <tr>
-                    <td>source_age</td>
-                    <td>Customer age<span class="req-star">*</span></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>source_store</td>
-                    <td>Customer registration store<span class="req-star">*</span></td>
-                    <td><span class="req-check"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="var(--green-7)" stroke-width="1.4"/><path d="M5.5 9l2.4 2.4L12.5 6.8" stroke="var(--green-7)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <button class="config-sum-toggle" onclick="toggleCfgMapping(this)">
-              <span>Hide mapping</span>
-              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 5l4-4 4 4"/></svg>
-            </button>
+            <dl class="kv-grid">
+              <dt>Data profile</dt><dd>Customer</dd>
+              <dt>Import method</dt><dd>Upsert</dd>
+              <dt>Unique ID</dt><dd>Mobile number</dd>
+            </dl>
           </div>
 
-        </div>
-        </div>
-      </div>
-      <div id="tab-job-status" class="hidden">
-        <div class="run-detail-body" style="padding-left:0;padding-right:0;">
-          <div class="run-error-banner" id="ot-error-banner">
-            <span class="run-error-banner-source">
-              <span style="color:var(--neutral-7);">Report table name</span>&nbsp;
-              <span class="run-error-banner-table">74625128162512525271241526720_source_data</span>
-              <button class="run-error-banner-copy" onclick="navigator.clipboard.writeText('74625128162512525271241526720_source_data')" title="Copy table name">
-                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg>
-              </button>
-            </span>
-          </div>
-
-          <div class="run-phase">
-            <div class="run-phase-indicator">
-              <div class="run-phase-icon done" id="ot-val-phase-icon">
-                <svg id="ot-val-phase-icon-svg" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--green-7)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l3.5 3.5L13 5"/></svg>
-              </div>
-              <div class="run-phase-line"></div>
+          <!-- Fields mapping -->
+          <div class="config-section">
+            <div class="config-section-head">
+              <span>Fields mapping</span>
             </div>
-            <div class="run-phase-content">
-              <div class="run-phase-label">Data validation</div>
-              <div class="run-phase-meta">
-                <span>Started by <strong>Rick Sanchez</strong></span>
-                <span class="pipe" id="ot-val-meta-pipe-end">|</span>
-                <span id="ot-val-meta-end">Run window: <strong>02 Jul, 2025 01:32:19 PM</strong> — <strong>02 Jul, 2025 01:46:09 PM</strong><span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></span>
-                <span class="pipe">|</span>
-                <span>Duration: <strong>13m 48s</strong></span>
-              </div>
-              <div class="run-stats-card" id="ot-val-card-completed">
-                <div class="run-stats-header">
-                  <div class="run-stats-title">Validation completed, all valid records!</div>
-                  <div class="run-stats-sub">All the records are valid and good to go</div>
-                </div>
-                <div class="run-stats-grid" style="grid-template-columns: repeat(4, 1fr);">
-                  <div class="run-stat-item"><div class="run-stat-label">Source records</div><div class="run-stat-value">2.32M</div></div>
-                  <div class="run-stat-item"><div class="run-stat-label">Unique records found</div><div class="run-stat-value">2.18M</div></div>
-                  <div class="run-stat-item"><div class="run-stat-label">Valid records</div><div class="run-stat-value">2.18M <span class="run-stat-sub">(94%)</span></div></div>
-                  <div class="run-stat-item"><div class="run-stat-label">Error records</div><div class="run-stat-value">0 <span class="run-stat-sub">(0%)</span></div></div>
-                </div>
-              </div>
-              <!-- Validating state card (shown only when status === 'validating') -->
-              <div class="run-stats-card status-validating hidden" id="ot-val-card-validating">
-                <div style="padding: 22px 26px; display: flex; align-items: center; gap: 16px;">
-                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" class="spin-anim" style="flex-shrink: 0;">
-                    <circle cx="14" cy="14" r="11" stroke="var(--blue-7)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="52 26"/>
-                  </svg>
-                  <div>
-                    <div class="run-stats-title">Data validation in progress...</div>
-                    <div style="font-size: 13px; color: var(--neutral-7); margin-top: 5px;">
-                      Estimated time for validation <strong style="color: var(--neutral-11); font-weight: 500;">15 minutes</strong>
-                      <span style="color: var(--neutral-4); margin: 0 8px;">|</span>
-                      Time elapsed <strong style="color: var(--neutral-11); font-weight: 500;">10:09 minutes</strong>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Info note shown when validating: explains next step -->
-          <div class="hidden" id="ot-val-info-note" style="align-items: center; gap: 16px; padding: 8px 0; margin-top: 4px;">
-            <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--neutral-1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--neutral-7)" stroke-width="1.3"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg>
-            </div>
-            <div style="font-size: 14px; color: var(--neutral-7);">Once validation is done, approval will be required to run the import job</div>
-          </div>
-
-          <div class="run-phase" id="ot-phase-import">
-            <div class="run-phase-indicator">
-              <div class="run-phase-icon active">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#2466EA" stroke-width="2"/><circle cx="8" cy="8" r="2.5" fill="#2466EA"/></svg>
-              </div>
-            </div>
-            <div class="run-phase-content">
-              <div class="run-phase-label">Import job</div>
-              <div class="phase-pending-msg">Will start automatically once data validation is complete.</div>
-              <div class="run-phase-meta">
-                <span>Approved by <strong>Rick Sanchez</strong> on <strong>02 Jul, 2025 01:46:55 PM</strong><span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></span>
-                <span class="pipe">|</span>
-                <span>Run window: <strong>02 Jul, 2025 01:47:00 PM</strong> — <strong>In progress</strong><span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></span>
-                <span class="pipe">|</span>
-                <span>Duration: <strong>1m 28s</strong> <span style="color:var(--neutral-7);font-weight:400;">(Ongoing)</span></span>
-              </div>
-              <div class="run-stats-card status-active">
-                <div class="import-progress-bar">
-                  <div class="import-progress-info">
-                    <div class="run-stats-title">Import in progress</div>
-                    <div class="run-stats-sub">This might take a while. We'll notify you once the job is completed</div>
-                  </div>
-                  <div class="import-progress-actions">
-                    <span class="import-progress-pct">3%</span>
-                    <button class="btn-abort">
-                      <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7" cy="7" r="5.5"/><rect x="5" y="5" width="4" height="4" rx="0.5" fill="currentColor" stroke="none"/></svg>
-                      Abort
-                    </button>
-                  </div>
-                </div>
-                <div class="import-progress-track"><div class="import-progress-fill" style="width:3%;"></div></div>
-                <div class="run-stats-grid" style="grid-template-columns: repeat(4, 1fr);">
-                  <div class="run-stat-item"><div class="run-stat-label">Records imported</div><div class="run-stat-value">3.17K <span class="run-stat-sub">/ 2.18M</span></div></div>
-                  <div class="run-stat-item"><div class="run-stat-label">Records added</div><div class="run-stat-value">1.97K</div></div>
-                  <div class="run-stat-item"><div class="run-stat-label">Records updated</div><div class="run-stat-value">1.21K</div></div>
-                  <div class="run-stat-item"><div class="run-stat-label">Error records</div><div class="run-stat-value">0 <span class="run-stat-sub">(0%)</span></div></div>
-                </div>
-              </div>
-            </div>
+            <dl class="kv-grid">
+              <dt>Mapped fields</dt><dd>6 fields (1 required, 5 optional)</dd>
+            </dl>
           </div>
         </div>
       </div>
@@ -3214,17 +2880,18 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
 <script>
 // ── STATE ──
 let selType = '', isRec = false, curStep = 0, stepIds = [], jobTypeSelected = false;
-let _currentJobIsOneTime = false;
 
 const STEPS_REC = [{id:'jobsettings',label:'Job setup'},{id:'data',label:'Data to import'},{id:'profile',label:'Profile and method'},{id:'mapping',label:'Fields mapping'},{id:'review',label:'Review and proceed'}];
 const STEPS_ONE = [{id:'jobsettings',label:'Job setup'},{id:'data',label:'Data to import'},{id:'profile',label:'Profile and method'},{id:'mapping',label:'Fields mapping'},{id:'review',label:'Review and proceed'}];
 
 // ── OPEN WIZARD ──
 function openModal() {
+  // One-time is selected by default (matches the pre-checked card), so the
+  // first step is already valid and Next is active as soon as the page opens.
   isRec = false;
-  selType = '';
-  jobTypeSelected = false;
-  stepIds = STEPS_REC.map(s => s.id); // will be corrected when user selects type
+  selType = 'onetime';
+  jobTypeSelected = true;
+  stepIds = STEPS_ONE.map(s => s.id);
   curStep = 0;
   document.getElementById('rev-runconfig-sec').style.display = 'none';
   document.getElementById('rev-type').textContent = 'One-time';
@@ -3251,16 +2918,9 @@ function selJobType(type) {
   sel.appendChild(b);
   // Show/hide frequency config
   document.getElementById('freq-config').classList.toggle('hidden', !isRec);
-  // Show/hide approval policy (one-time jobs don't need it)
-  const apWrap = document.getElementById('approval-policy-wrap');
-  if (apWrap) apWrap.style.display = isRec ? '' : 'none';
   // Update step flow
   stepIds = (isRec ? STEPS_REC : STEPS_ONE).map(s => s.id);
-  // Keep Job setup section visible for both; hide recurring-only fields for one-time
-  document.getElementById('rev-runconfig-sec').style.display = 'block';
-  document.querySelectorAll('.rev-rec-only').forEach(el => {
-    el.style.display = isRec ? '' : 'none';
-  });
+  document.getElementById('rev-runconfig-sec').style.display = isRec ? 'block' : 'none';
   document.getElementById('rev-type').textContent = isRec ? 'Recurring' : 'One-time';
   validateStep();
 }
@@ -3462,9 +3122,10 @@ function validateStep() {
       }
     }
 
-    // 3. Approval policy — conditional selected but no condition ticked, or ticked with empty value
+    // 3. Run approval — conditional selected but no limit ticked, or ticked with empty value
     if (!reason) {
       const cond = document.getElementById('ap-conditional');
+      const noCondErr = document.getElementById('ap-no-cond-err');
       if (cond && cond.classList.contains('on')) {
         const recordsBlock = document.getElementById('cond-records-block');
         const errorBlock = document.getElementById('cond-error-block');
@@ -3473,12 +3134,18 @@ function validateStep() {
         const r = document.getElementById('thresh-records');
         const er = document.getElementById('thresh-error');
         if (!recordsChecked && !errorChecked) {
+          if (noCondErr) noCondErr.classList.add('show');
           reason = 'Fill all fields to continue';
-        } else if (recordsChecked && !(r && r.value.trim())) {
-          reason = 'Fill all fields to continue';
-        } else if (errorChecked && !(er && er.value.trim())) {
-          reason = 'Fill all fields to continue';
+        } else {
+          if (noCondErr) noCondErr.classList.remove('show');
+          if (recordsChecked && !(r && r.value.trim())) {
+            reason = 'Fill all fields to continue';
+          } else if (errorChecked && !(er && er.value.trim())) {
+            reason = 'Fill all fields to continue';
+          }
         }
+      } else {
+        if (noCondErr) noCondErr.classList.remove('show');
       }
     }
 
@@ -3599,7 +3266,6 @@ function updateTablePreview() {
       document.querySelector('.tbl-meta-row').style.display = 'flex';
       document.querySelector('.tbl-match-banner').style.display = 'flex';
       _tblIdx = 0;
-      populateTblNavSelect(MOCK_TABLES);
       renderTablePreview();
     }
   } else {
@@ -3612,27 +3278,17 @@ function tblNav(delta) {
   renderTablePreview();
 }
 
-function populateTblNavSelect(tables) {
-  const sel = document.getElementById('tbl-nav-select');
-  if (!sel) return;
-  sel.innerHTML = tables.map((t, i) => `<option value="${i}">${t.name}</option>`).join('');
-}
-
-function tblNavSelect(sel) {
-  _tblIdx = parseInt(sel.value, 10);
-  renderTablePreview();
-}
-
 function renderTablePreview() {
   const total = MOCK_TABLES.length;
   const t = MOCK_TABLES[_tblIdx];
   // Banner
   document.getElementById('tbl-match-count').textContent = total;
   // Nav
-  const sel = document.getElementById('tbl-nav-select');
-  if (sel) sel.value = String(_tblIdx);
+  document.getElementById('tbl-current-name').textContent = t.name;
   document.getElementById('tbl-pos-current').textContent = _tblIdx + 1;
   document.getElementById('tbl-pos-total').textContent = total;
+  document.getElementById('tbl-nav-prev').disabled = _tblIdx === 0;
+  document.getElementById('tbl-nav-next').disabled = _tblIdx === total - 1;
   // Toggle preview vs no-preview
   const scrollEl = document.getElementById('tbl-preview-scroll');
   const noPreviewEl = document.getElementById('tbl-no-preview');
@@ -4469,7 +4125,7 @@ function ordinal(n) {
 
 // Close all dropdowns/pickers on outside click
 document.addEventListener('click', () => {
-  ['freq-menu','freq-menu-cron','on-week-menu','on-month-menu'].forEach(id=>{
+  ['freq-menu','freq-menu-cron','on-week-menu','on-month-menu','profile-menu','uid-expiry-menu'].forEach(id=>{
     const el=document.getElementById(id); if(el) el.classList.add('hidden');
   });
   closeDtp();
@@ -4706,11 +4362,13 @@ function updateSummary() {
 function selApprovalMode(mode) {
   const auto = document.getElementById('ap-auto');
   const cond = document.getElementById('ap-conditional');
-  const conditions = document.getElementById('ap-conditions');
+  const wrap = document.getElementById('ap-conditions-wrap');
+  const ofSuffix = document.getElementById('ap-of-suffix');
   if (mode === 'auto') {
     auto.classList.add('on');
     cond.classList.remove('on');
-    conditions.classList.add('hidden');
+    if (wrap) wrap.classList.add('hidden');
+    if (ofSuffix) ofSuffix.classList.add('hidden');
     // Reset both conditions when switching away
     ['records','error'].forEach(key => {
       const block = document.getElementById(`cond-${key}-block`);
@@ -4720,10 +4378,13 @@ function selApprovalMode(mode) {
       if (cb) cb.checked = false;
       if (input) input.value = '';
     });
+    const noCondErr = document.getElementById('ap-no-cond-err');
+    if (noCondErr) noCondErr.classList.remove('show');
   } else {
     auto.classList.remove('on');
     cond.classList.add('on');
-    conditions.classList.remove('hidden');
+    if (wrap) wrap.classList.remove('hidden');
+    if (ofSuffix) ofSuffix.classList.remove('hidden');
   }
   validateStep();
 }
@@ -4764,7 +4425,9 @@ function selSrc(btn) {
 
 // ── METHOD ──
 function selMethod(card) {
-  document.querySelectorAll('.method-card').forEach(c=>{
+  // Scope to the visible method block so hidden cards aren't affected
+  const block = card.closest('.form-section') || document;
+  block.querySelectorAll('.method-card').forEach(c=>{
     c.classList.remove('on');
     const chk=c.querySelector('.m-chk'); if(chk) chk.remove();
   });
@@ -4772,6 +4435,36 @@ function selMethod(card) {
   const chk=document.createElement('div'); chk.className='m-chk';
   chk.innerHTML='<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="white" stroke-width="2"><path d="M2 5l2.5 2.5 4-4"/></svg>';
   card.insertBefore(chk,card.firstChild);
+}
+
+// ── DATA PROFILE ──
+function toggleProfileMenu(e) {
+  e.stopPropagation();
+  document.getElementById('profile-menu').classList.toggle('hidden');
+  const uid = document.getElementById('uid-expiry-menu'); if (uid) uid.classList.add('hidden');
+}
+function selProfile(name) {
+  document.getElementById('profile-val').textContent = name;
+  document.getElementById('profile-menu').classList.add('hidden');
+  const isExpiry = (name === 'Points expiry');
+  // Import method: Points expiry has Update-only; everything else has the full set
+  document.getElementById('method-default').classList.toggle('hidden', isExpiry);
+  document.getElementById('method-expiry').classList.toggle('hidden', !isExpiry);
+  // Additional configurations: swap config blocks
+  document.getElementById('addl-default').classList.toggle('hidden', isExpiry);
+  document.getElementById('addl-expiry').classList.toggle('hidden', !isExpiry);
+  if (typeof validateStep === 'function') validateStep();
+}
+
+// ── CUSTOMER'S UNIQUE ID (Points expiry) ──
+function toggleUidExpiryMenu(e) {
+  e.stopPropagation();
+  document.getElementById('uid-expiry-menu').classList.toggle('hidden');
+  const prof = document.getElementById('profile-menu'); if (prof) prof.classList.add('hidden');
+}
+function selUidExpiry(val) {
+  document.getElementById('uid-expiry-val').textContent = val;
+  document.getElementById('uid-expiry-menu').classList.add('hidden');
 }
 
 // ── RADIO ──
@@ -4793,7 +4486,7 @@ function filterJobsList() {
   const input = document.getElementById('jobs-search');
   if (!input) return;
   const q = input.value.trim().toLowerCase();
-  const rows = document.querySelectorAll('#screen-list tbody tr');
+  const rows = document.querySelectorAll('#screen-listing tbody tr');
   rows.forEach(row => {
     if (!q) { row.style.display = ''; return; }
     // Search the row's text content (covers job name in first cell and ID in cell-sub)
@@ -4822,17 +4515,10 @@ function updateMainListStatus(jobId, dotClass, statusText) {
 
 
 function goDet(name,id,type,status) {
-  try {
   _currentJobId = id;
   document.getElementById('det-name').textContent = name;
   document.getElementById('det-id').textContent = id;
   document.getElementById('det-type').textContent = type;
-  // Show cadence + next run only for recurring jobs; hide for one-time
-  const cadenceEl = document.getElementById('det-cadence');
-  if (cadenceEl) cadenceEl.style.display = (type === 'Recurring') ? '' : 'none';
-  document.querySelectorAll('.det-recurring-only').forEach(el => {
-    el.style.display = (type === 'Recurring') ? '' : 'none';
-  });
   const map = {
     'live':['var(--green-7)','Live'],
     'draft':['var(--blue-7)','Draft'],
@@ -4847,10 +4533,8 @@ function goDet(name,id,type,status) {
     'validation-failed':['var(--red-6)','Validation failed']
   };
   const [col,txt] = map[status]||map['in-progress'];
-  const detDot = document.getElementById('det-dot');
-  const detStatusTxt = document.getElementById('det-status-txt');
-  if (detDot) detDot.style.background = col;
-  if (detStatusTxt) detStatusTxt.textContent = txt;
+  document.getElementById('det-dot').style.background = col;
+  document.getElementById('det-status-txt').textContent = txt;
   
   // Reset action button states first (clear any persisted disabled styles from previous views)
   const pauseBtn = document.getElementById('btn-pause-resume');
@@ -4903,105 +4587,32 @@ function goDet(name,id,type,status) {
     setBtnEnabled(stopBtn, false);
   }
   
-  _currentJobIsOneTime = (type === 'One-time');
-
-  // For one-time jobs, update tab-job-status to reflect job status (validating vs default)
-  if (_currentJobIsOneTime) {
-    const otValIcon = document.getElementById('ot-val-phase-icon');
-    const otValIconSvg = document.getElementById('ot-val-phase-icon-svg');
-    const otValCompleted = document.getElementById('ot-val-card-completed');
-    const otValValidating = document.getElementById('ot-val-card-validating');
-    const otValMetaEnd = document.getElementById('ot-val-meta-end');
-    const otValMetaPipeEnd = document.getElementById('ot-val-meta-pipe-end');
-    const otValInfoNote = document.getElementById('ot-val-info-note');
-    const otPhaseImport = document.getElementById('ot-phase-import');
-    const otErrorBanner = document.getElementById('ot-error-banner');
-
-    if (status === 'validating') {
-      // Validating UI for one-time job
-      if (otValIcon) otValIcon.className = 'run-phase-icon active';
-      if (otValIconSvg) {
-        otValIconSvg.setAttribute('stroke', 'var(--blue-7)');
-        otValIconSvg.setAttribute('stroke-width', '2');
-        otValIconSvg.setAttribute('class', 'spin-anim');
-        otValIconSvg.innerHTML = '<circle cx="8" cy="8" r="6" fill="none" stroke-linecap="round" stroke-dasharray="28 14"/>';
-      }
-      if (otValCompleted) otValCompleted.classList.add('hidden');
-      if (otValValidating) otValValidating.classList.remove('hidden');
-      // Keep meta visible — show "In progress" end + Duration as elapsed
-      if (otValMetaEnd) {
-        otValMetaEnd.style.display = '';
-        otValMetaEnd.innerHTML = 'Run window: <strong>02 Jul, 2025 01:32:19 PM</strong> — <strong>In progress</strong><span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span>';
-      }
-      if (otValMetaPipeEnd) otValMetaPipeEnd.style.display = '';
-      if (otValInfoNote) otValInfoNote.style.display = 'flex';
-      // Gray out the import phase instead of hiding
-      if (otPhaseImport) { otPhaseImport.classList.remove('hidden'); otPhaseImport.classList.add('phase-pending'); }
-      if (otErrorBanner) otErrorBanner.classList.add('hidden');
-    } else {
-      // Default: show completed validation + import phase
-      if (otValIcon) otValIcon.className = 'run-phase-icon done';
-      if (otValIconSvg) {
-        otValIconSvg.removeAttribute('class');
-        otValIconSvg.setAttribute('stroke', 'var(--green-7)');
-        otValIconSvg.setAttribute('stroke-width', '2.2');
-        otValIconSvg.innerHTML = '<path d="M3 8l3.5 3.5L13 5"/>';
-      }
-      if (otValCompleted) otValCompleted.classList.remove('hidden');
-      if (otValValidating) otValValidating.classList.add('hidden');
-      // Restore completed meta
-      if (otValMetaEnd) {
-        otValMetaEnd.style.display = '';
-        otValMetaEnd.innerHTML = 'Run window: <strong>02 Jul, 2025 01:32:19 PM</strong> — <strong>02 Jul, 2025 01:46:09 PM</strong><span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span>';
-      }
-      if (otValMetaPipeEnd) otValMetaPipeEnd.style.display = '';
-      if (otValInfoNote) otValInfoNote.style.display = 'none';
-      if (otPhaseImport) { otPhaseImport.classList.remove('hidden'); otPhaseImport.classList.remove('phase-pending'); }
-      if (otErrorBanner) otErrorBanner.classList.remove('hidden');
-    }
+  // Show frequency for recurring jobs, hide for one-time
+  const freqPipe = document.getElementById('det-freq-pipe');
+  const freqWrap = document.getElementById('det-freq-wrap');
+  const freqVal  = document.getElementById('det-freq');
+  const freqMap = {
+    '291726': 'Every day at 2:00 AM',
+    '318402': 'Every day at 2:00 AM',
+    '920183': 'Every day at 3:00 AM',
+    '746251': 'Weekly, Mon & Thu at 9:00 AM',
+    '582301': 'Weekly on Mon at 10:00 AM',
+    '473023': 'Daily at 11:00 AM',
+    '891202': 'Every day at 3:40 PM',
+  };
+  if (type === 'Recurring') {
+    if (freqPipe) freqPipe.style.display = '';
+    if (freqWrap) freqWrap.style.display = '';
+    if (freqVal)  freqVal.textContent = freqMap[id] || 'Every day';
+  } else {
+    if (freqPipe) freqPipe.style.display = 'none';
+    if (freqWrap) freqWrap.style.display = 'none';
   }
-
-  // Update config summary based on job type
-  const cfgJobType = document.getElementById('cfg-job-type');
-  if (cfgJobType) cfgJobType.textContent = _currentJobIsOneTime ? 'One-time' : 'Recurring';
-  document.querySelectorAll('.cfg-rec-only').forEach(el => {
-    el.style.display = _currentJobIsOneTime ? 'none' : '';
-  });
-
-  // Hide Pause/Stop for one-time jobs
-  const actionsEl = document.getElementById('detail-actions');
-  if (actionsEl) actionsEl.style.display = _currentJobIsOneTime ? 'none' : '';
-
-  // Switch first tab label + content based on job type
-  const firstTabEl = document.getElementById('tab-label-first');
-  if (firstTabEl) {
-    if (_currentJobIsOneTime) {
-      firstTabEl.textContent = 'Job status';
-      firstTabEl.onclick = function() { switchTab(this, 'job-status'); };
-    } else {
-      firstTabEl.textContent = 'Scheduled runs';
-      firstTabEl.onclick = function() { switchTab(this, 'runs'); };
-    }
-  }
-  // Reset tabs: activate first, hide rest
-  document.querySelectorAll('#screen-detail .tab-item').forEach(t => t.classList.remove('active'));
-  if (firstTabEl) firstTabEl.classList.add('active');
-  document.getElementById('tab-runs').classList.toggle('hidden', _currentJobIsOneTime);
-  const jobStatusEl = document.getElementById('tab-job-status');
-  if (jobStatusEl) jobStatusEl.classList.toggle('hidden', !_currentJobIsOneTime);
-  document.getElementById('tab-config').classList.add('hidden');
 
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-detail').classList.add('active');
   window.scrollTo(0,0);
   setTimeout(syncLegendVisibility, 0);
-  } catch (err) {
-    console.error('[goDet] error:', err);
-    // Fallback — still try to navigate so user isn't stuck
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    const sd = document.getElementById('screen-detail');
-    if (sd) sd.classList.add('active');
-  }
 }
 
 function switchTab(el, tab) {
@@ -5009,28 +4620,6 @@ function switchTab(el, tab) {
   el.classList.add('active');
   document.getElementById('tab-runs').classList.toggle('hidden', tab!=='runs');
   document.getElementById('tab-config').classList.toggle('hidden', tab!=='config');
-  const jobStatusEl = document.getElementById('tab-job-status');
-  if (jobStatusEl) jobStatusEl.classList.toggle('hidden', tab!=='job-status');
-}
-
-// Collapse/expand the "Additional configurations" block
-function toggleCfgAddl(btn) {
-  // Find the wrap div immediately preceding this button
-  const wrap = btn.previousElementSibling;
-  if (!wrap) return;
-  const collapsed = wrap.classList.toggle('hidden');
-  btn.classList.toggle('collapsed', collapsed);
-  btn.querySelector('span').textContent = collapsed ? 'Show additional configurations' : 'Hide additional configurations';
-}
-
-// Collapse/expand the mapping table
-function toggleCfgMapping(btn) {
-  // Find the wrap div immediately preceding this button
-  const wrap = btn.previousElementSibling;
-  if (!wrap) return;
-  const collapsed = wrap.classList.toggle('hidden');
-  btn.classList.toggle('collapsed', collapsed);
-  btn.querySelector('span').textContent = collapsed ? 'Show mapping' : 'Hide mapping';
 }
 
 // ── PAUSE / STOP MODALS ──
@@ -5058,18 +4647,6 @@ let _pendingJobName = '';
 
 function showPauseModal() { document.getElementById('pause-modal').classList.remove('hidden'); }
 function closePauseModal() { document.getElementById('pause-modal').classList.add('hidden'); }
-// Update the LATEST run (first row) in the runs table — used by pause/stop/resume
-function updateLatestRunStatus(dotClass, statusText) {
-  const firstRow = document.querySelector('#tab-runs .runs-table tbody tr');
-  if (!firstRow) return;
-  const statusCell = firstRow.querySelectorAll('td')[2]; // 3rd td is Status
-  if (!statusCell) return;
-  statusCell.innerHTML = '<div class="status-dot"><div class="dot ' + dotClass + '"></div>' + statusText + '</div>';
-}
-
-function showResumeModal() { document.getElementById('resume-modal').classList.remove('hidden'); }
-function closeResumeModal() { document.getElementById('resume-modal').classList.add('hidden'); }
-
 function confirmPause() {
   closePauseModal();
   // If triggered from row menu, just sync main list and exit
@@ -5079,37 +4656,33 @@ function confirmPause() {
     return;
   }
   // Detail page flow
-  { const _d = document.getElementById('det-dot'); if (_d) _d.style.background = 'var(--neutral-5)'; }
-  { const _t = document.getElementById('det-status-txt'); if (_t) _t.textContent = 'Paused'; }
+  document.getElementById('det-dot').style.background = 'var(--neutral-5)';
+  document.getElementById('det-status-txt').textContent = 'Paused';
   document.getElementById('pause-icon').classList.add('hidden');
   document.getElementById('resume-icon').classList.remove('hidden');
   document.getElementById('pause-resume-label').textContent = 'Resume';
   document.getElementById('btn-pause-resume').dataset.state = 'paused';
   if (_currentJobId) updateMainListStatus(_currentJobId, 'dot-gray', 'Paused');
-  // Also update the latest run's status in the runs table
-  updateLatestRunStatus('dot-gray', 'Paused');
 }
 
+function showResumeModal() { document.getElementById('resume-modal').classList.remove('hidden'); }
+function closeResumeModal() { document.getElementById('resume-modal').classList.add('hidden'); }
 function confirmResume() {
   closeResumeModal();
-  // Detail page flow
-  { const _d = document.getElementById('det-dot'); if (_d) _d.style.background = 'var(--green-7)'; }
-  { const _t = document.getElementById('det-status-txt'); if (_t) _t.textContent = 'Live'; }
+  const btn = document.getElementById('btn-pause-resume');
+  document.getElementById('det-dot').style.background = 'var(--green-7)';
+  document.getElementById('det-status-txt').textContent = 'Live';
   document.getElementById('pause-icon').classList.remove('hidden');
   document.getElementById('resume-icon').classList.add('hidden');
   document.getElementById('pause-resume-label').textContent = 'Pause';
-  document.getElementById('btn-pause-resume').dataset.state = 'active';
-  // Sync to main list
+  btn.dataset.state = 'active';
   if (_currentJobId) updateMainListStatus(_currentJobId, 'dot-green', 'Live');
-  // Latest run resumes to active state — restore to "Import in progress"
-  updateLatestRunStatus('dot-green', 'Import in progress');
 }
 
 function handlePauseResume() {
   const btn = document.getElementById('btn-pause-resume');
   const state = btn.dataset.state || 'active';
   if (state === 'paused') {
-    // Show the resume confirmation modal
     showResumeModal();
   } else {
     showPauseModal();
@@ -5126,8 +4699,8 @@ function confirmStop() {
     return;
   }
   // Detail page flow
-  { const _d = document.getElementById('det-dot'); if (_d) _d.style.background = 'var(--neutral-5)'; }
-  { const _t = document.getElementById('det-status-txt'); if (_t) _t.textContent = 'Stopped'; }
+  document.getElementById('det-dot').style.background = 'var(--neutral-5)';
+  document.getElementById('det-status-txt').textContent = 'Stopped';
   const pauseBtn = document.getElementById('btn-pause-resume');
   const stopBtn = document.getElementById('btn-stop');
   [pauseBtn, stopBtn].forEach(btn => {
@@ -5138,8 +4711,6 @@ function confirmStop() {
     btn.style.display = '';
   });
   if (_currentJobId) updateMainListStatus(_currentJobId, 'dot-gray', 'Stopped');
-  // Also update the latest run's status in the runs table
-  updateLatestRunStatus('dot-gray', 'Stopped');
 }
 // ── ROW OVERFLOW MENUS ──
 function toggleRowMenu(e, menuId) {
@@ -5208,16 +4779,6 @@ function abortFromRunDetail() {
   }
 }
 
-// Copy a value to clipboard with brief visual feedback on the button
-function copyText(text, btn, event) {
-  if (event) event.stopPropagation();
-  navigator.clipboard.writeText(text).catch(() => {});
-  if (btn) {
-    btn.classList.add('copied');
-    setTimeout(() => btn.classList.remove('copied'), 1000);
-  }
-}
-
 function goRunDetail(runId, triggeredAt, statusKey, jobName, jobType) {
   _currentRunDet = { jobName, jobType };
 
@@ -5235,7 +4796,7 @@ function goRunDetail(runId, triggeredAt, statusKey, jobName, jobType) {
     'failed':      ['var(--red-6)', 'Import failed'],
     'validation-failed': ['var(--red-6)', 'Validation failed'],
     'awaiting':    ['var(--orange-7)', 'Awaiting approval'],
-    'validating':  ['#E3B100', 'Validation in progress']
+    'validating':  ['#E3B100', 'Validating']
   };
   const [col, txt] = statusMap[statusKey] || ['var(--neutral-5)', statusKey];
   document.getElementById('run-status-dot').style.background = col;
@@ -5289,94 +4850,44 @@ function goRunDetail(runId, triggeredAt, statusKey, jobName, jobType) {
     bannerEl.classList.remove('hidden');
   }
 
-  // Phase swap based on status
-  const phaseImport = document.getElementById('phase-import');
-  const phaseAwaiting = document.getElementById('phase-awaiting');
-  const valIconEl = document.getElementById('val-phase-icon');
-  const valIconSvg = document.getElementById('val-phase-icon-svg');
-  const valCard = document.getElementById('val-stats-card');
-  const valTitle = document.getElementById('val-stats-title');
-  const valSub = document.getElementById('val-stats-sub');
-  const valStatValid = document.getElementById('val-stat-valid');
-  const valStatErrors = document.getElementById('val-stat-errors');
+  // ── Awaiting approval state setup ──
+  const awaitingBlock = document.getElementById('run-awaiting-block');
+  const importPhase = document.getElementById('run-phase-import');
+  const validationIcon = document.getElementById('run-phase-validation-icon');
+  const validationCard = document.getElementById('run-validation-card');
+  const validationTitle = document.getElementById('run-validation-title');
+  const validationSub = document.getElementById('run-validation-sub');
+  const valErrorsEl = document.getElementById('run-val-errors');
+  const valValidEl = document.getElementById('run-val-valid');
 
-  const valCardValidating = document.getElementById('val-card-validating');
-  const valMetaEnd = document.getElementById('val-meta-end');
-  const valMetaPipeEnd = document.getElementById('val-meta-pipe-end');
-  const valInfoNote = document.getElementById('val-info-note');
-
-  // Helper to reset validation phase to default visibility
-  function resetValPhase() {
-    if (valCard) valCard.classList.remove('hidden');
-    if (valCardValidating) valCardValidating.classList.add('hidden');
-    if (valMetaEnd) valMetaEnd.style.display = '';
-    if (valMetaPipeEnd) valMetaPipeEnd.style.display = '';
-    if (valInfoNote) valInfoNote.style.display = 'none';
-  }
-
-  if (statusKey === 'validating') {
-    // Validating state — show in-progress validation card, gray the import phase
-    if (phaseImport) { phaseImport.classList.remove('hidden'); phaseImport.classList.add('phase-pending'); }
-    if (phaseAwaiting) phaseAwaiting.classList.add('hidden');
-    // Validation phase icon = blue spinner (active)
-    if (valIconEl) { valIconEl.className = 'run-phase-icon active'; }
-    if (valIconSvg) {
-      valIconSvg.setAttribute('stroke', 'var(--blue-7)');
-      valIconSvg.setAttribute('stroke-width', '2');
-      valIconSvg.setAttribute('class', 'spin-anim');
-      valIconSvg.innerHTML = '<circle cx="8" cy="8" r="6" fill="none" stroke-linecap="round" stroke-dasharray="28 14"/>';
+  if (statusKey === 'awaiting') {
+    // Show awaiting block, hide import phase
+    if (awaitingBlock) awaitingBlock.classList.remove('hidden');
+    if (importPhase) importPhase.style.display = 'none';
+    // Validation phase: warning state with error records found
+    if (validationIcon) {
+      validationIcon.className = 'run-phase-icon warning';
+      validationIcon.innerHTML = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#F0A020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2L14 13H2L8 2Z"/><path d="M8 6.5v3"/><circle cx="8" cy="11.5" r="0.6" fill="#F0A020" stroke="none"/></svg>';
     }
-    // Swap to validating card, hide completed card
-    if (valCard) valCard.classList.add('hidden');
-    if (valCardValidating) valCardValidating.classList.remove('hidden');
-    // Update meta: show "Run window: X — In progress" with elapsed Duration
-    if (valMetaEnd) {
-      valMetaEnd.style.display = '';
-      valMetaEnd.innerHTML = 'Run window: <strong>25 Apr, 2026 02:00 AM</strong> — <strong>In progress</strong><span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span>';
-    }
-    if (valMetaPipeEnd) valMetaPipeEnd.style.display = '';
-    // Show info note about approval-required-after-validation
-    if (valInfoNote) valInfoNote.style.display = 'flex';
-    // Also hide the error banner since no errors yet
-    const banEl = document.getElementById('run-error-banner');
-    if (banEl) banEl.classList.add('hidden');
-  } else if (statusKey === 'awaiting') {
-    resetValPhase();
-    // Reset icon class (remove spinner)
-    if (valIconSvg) valIconSvg.removeAttribute('class');
-    // Show awaiting approval, hide import progress
-    if (phaseImport) { phaseImport.classList.add('hidden'); phaseImport.classList.remove('phase-pending'); }
-    if (phaseAwaiting) phaseAwaiting.classList.remove('hidden');
-    // Set Data validation to warning state (errors found, awaiting human review)
-    if (valIconEl) { valIconEl.className = 'run-phase-icon warning'; }
-    if (valIconSvg) {
-      valIconSvg.setAttribute('stroke', 'var(--orange-7)');
-      valIconSvg.setAttribute('stroke-width', '1.8');
-      valIconSvg.innerHTML = '<path d="M8 2L1.5 13.5h13L8 2z" stroke-linejoin="round"/><path d="M8 6.5v3" stroke-linecap="round"/><circle cx="8" cy="11.5" r="0.6" fill="currentColor" stroke="none"/>';
-    }
-    if (valCard) valCard.className = 'run-stats-card status-warning';
-    if (valTitle) valTitle.textContent = 'Validation completed, Error records found';
-    if (valSub) valSub.textContent = 'Errors found in some of the records. Download the report, fix the Error records and run another import job for them';
-    if (valStatValid) valStatValid.innerHTML = '1.96M <span class="run-stat-sub">(84%)</span>';
-    if (valStatErrors) valStatErrors.innerHTML = '180.25K <span class="run-stat-sub">(8%)</span>';
+    if (validationCard) validationCard.classList.add('warning-state');
+    if (validationTitle) validationTitle.textContent = 'Validation completed, Error records found';
+    if (validationSub) validationSub.textContent = 'Errors found in some of the records. Download the report, fix the Error records and run another import job for them';
+    if (valErrorsEl) valErrorsEl.textContent = '64.32K';
+    if (valValidEl) valValidEl.textContent = '2.24M';
   } else {
-    resetValPhase();
-    // Default: show import phase, hide awaiting
-    if (phaseImport) { phaseImport.classList.remove('hidden'); phaseImport.classList.remove('phase-pending'); }
-    if (phaseAwaiting) phaseAwaiting.classList.add('hidden');
-    // Reset Data validation to done/success state
-    if (valIconEl) { valIconEl.className = 'run-phase-icon done'; }
-    if (valIconSvg) {
-      valIconSvg.removeAttribute('class');
-      valIconSvg.setAttribute('stroke', 'var(--green-7)');
-      valIconSvg.setAttribute('stroke-width', '2.2');
-      valIconSvg.innerHTML = '<path d="M3 8l3.5 3.5L13 5"/>';
+    // Default: hide awaiting block, show import phase
+    if (awaitingBlock) awaitingBlock.classList.add('hidden');
+    if (importPhase) importPhase.style.display = '';
+    // Reset validation phase to default state
+    if (validationIcon) {
+      validationIcon.className = 'run-phase-icon done';
+      validationIcon.innerHTML = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--green-7)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l3.5 3.5L13 5"/></svg>';
     }
-    if (valCard) valCard.className = 'run-stats-card';
-    if (valTitle) valTitle.textContent = 'Validation completed, all valid records!';
-    if (valSub) valSub.textContent = 'All the records are valid and good to go';
-    if (valStatValid) valStatValid.innerHTML = '2.18M <span class="run-stat-sub">(94%)</span>';
-    if (valStatErrors) valStatErrors.innerHTML = '0 <span class="run-stat-sub">(0%)</span>';
+    if (validationCard) validationCard.classList.remove('warning-state');
+    if (validationTitle) validationTitle.textContent = 'Validation completed, all valid records!';
+    if (validationSub) validationSub.textContent = 'All the records are valid and good to go';
+    if (valErrorsEl) valErrorsEl.textContent = '0';
+    if (valValidEl) valValidEl.textContent = '2.18M';
   }
 
   // Navigate
@@ -5388,16 +4899,6 @@ function goRunDetail(runId, triggeredAt, statusKey, jobName, jobType) {
   if (legendBtn) legendBtn.style.display = 'none';
 
   window.scrollTo(0, 0);
-}
-
-function approveRunFromDetail() {
-  alert('Approved — import job will start now.');
-  // In a real app: kick off the import, then re-render the page with 'in-progress' state
-}
-
-function rejectRunFromDetail() {
-  alert('Rejected — this run will not be imported.');
-  // In a real app: mark run as rejected, return to list or re-render with 'rejected' state
 }
 
 function toggleRunOverflow(e) {
@@ -5417,11 +4918,27 @@ document.addEventListener('click', () => {
   if (menu) menu.classList.add('hidden');
 });
 
-function goJobDetail() {
-  if (_currentJobIsOneTime) {
-    goList();
-    return;
+function approveRunFromAwaiting() {
+  const runId = document.getElementById('run-title-id-display').textContent;
+  alert('Approved: ' + runId + '\nImport job will now start.');
+  // Switch UI to in-progress state
+  document.getElementById('run-status-dot').style.background = 'var(--green-7)';
+  document.getElementById('run-status-txt').textContent = 'Import in progress';
+  document.getElementById('run-awaiting-block').classList.add('hidden');
+  const importPhase = document.getElementById('run-phase-import');
+  if (importPhase) importPhase.style.display = '';
+}
+
+function rejectRunFromAwaiting() {
+  const runId = document.getElementById('run-title-id-display').textContent;
+  if (confirm('Reject ' + runId + '? This run will not be imported.')) {
+    document.getElementById('run-status-dot').style.background = 'var(--red-6)';
+    document.getElementById('run-status-txt').textContent = 'Rejected';
+    document.getElementById('run-awaiting-block').classList.add('hidden');
   }
+}
+
+function goJobDetail() {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-detail').classList.add('active');
   setTimeout(syncLegendVisibility, 0);
@@ -5434,42 +4951,6 @@ function goJobDetail() {
 // Timezone tooltip — fixed position to escape overflow clipping
 (function() {
   var tip = null;
-  var ARROW_HTML = '<div style="position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:7px solid #091E42;"></div>';
-
-  function setTipContent(icon) {
-    var tipSpan = icon.querySelector('.tz-tip');
-    var tipText = tipSpan ? tipSpan.textContent.trim() : '';
-    var isTimezone = /timezone|utc/i.test(tipText);
-    // Treat both the main jobs listing AND the runs listing (inside job detail) as "listing" contexts
-    var isListing = !!icon.closest('#screen-listing') || !!icon.closest('.runs-table');
-
-    if (isTimezone && isListing) {
-      // Rich tooltip — only on listing page
-      tip.innerHTML =
-        '<div style="font-weight:600;font-size:14px;margin-bottom:5px;color:#fff;">Always shown in organization\'s timezone</div>' +
-        '<div style="color:rgba(255,255,255,0.7);font-size:13px;">Asia/Kolkata &nbsp;·&nbsp; UTC +05:30</div>' +
-        ARROW_HTML;
-      tip.style.minWidth = '260px';
-      tip.style.padding = '12px 16px';
-      tip.style.whiteSpace = 'normal';
-      tip.style.maxWidth = '';
-    } else if (isTimezone) {
-      // Simple timezone tooltip — everywhere else
-      tip.innerHTML = 'Asia/Kolkata &nbsp;·&nbsp; UTC +05:30' + ARROW_HTML;
-      tip.style.minWidth = '';
-      tip.style.padding = '10px 14px';
-      tip.style.whiteSpace = 'nowrap';
-      tip.style.maxWidth = '';
-    } else {
-      // Non-timezone info icon (e.g., "Required fields must be mapped...")
-      tip.innerHTML = (tipText || 'More info') + ARROW_HTML;
-      tip.style.minWidth = '';
-      tip.style.padding = '10px 14px';
-      tip.style.whiteSpace = 'normal';
-      tip.style.maxWidth = '280px';
-    }
-  }
-
   document.addEventListener('DOMContentLoaded', function() {
     tip = document.getElementById('tz-float');
   });
@@ -5477,7 +4958,6 @@ function goJobDetail() {
     var icon = e.target.closest && e.target.closest('.tz-info');
     if (!icon) return;
     if (!tip) tip = document.getElementById('tz-float');
-    setTipContent(icon);
     var r = icon.getBoundingClientRect();
     tip.style.display = 'block';
     // Position after display so offsetWidth/Height are available
@@ -5501,28 +4981,20 @@ function goJobDetail() {
   <div class="run-detail-page">
     <div class="run-detail-head-wrap">
       <div class="run-detail-head">
-        <!-- Title line: ← RUN-8821 [status] ............................. Job name · Job ID -->
-        <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding-bottom:8px;">
-          <div style="display:flex; align-items:center; gap:12px; min-width:0;">
-            <button onclick="goJobDetail()" style="background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;color:var(--neutral-9);">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg>
-            </button>
-            <h1 class="run-title-id-solo" id="run-title-id-display" style="margin:0;">RUN-8821</h1>
-            <div class="run-status-inline">
-              <span id="run-status-dot" style="width:8px;height:8px;border-radius:50%;background:var(--green-7);display:inline-block;"></span>
-              <span id="run-status-txt">Import in progress</span>
-            </div>
+        <!-- Title line: ← RUN-8821 ● Import in progress -->
+        <div style="display:flex; align-items:center; gap:12px; padding-bottom:6px;">
+          <button onclick="goJobDetail()" style="background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;color:var(--neutral-9);">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3L5 8l5 5"/></svg>
+          </button>
+          <h1 class="run-title-id-solo" id="run-title-id-display" style="margin:0;">RUN-8821</h1>
+          <div class="run-status-inline">
+            <span id="run-status-dot" style="width:8px;height:8px;border-radius:50%;background:var(--green-7);display:inline-block;"></span>
+            <span id="run-status-txt">Import in progress</span>
           </div>
         </div>
-        <!-- Meta line right under title: Job [name] | Job ID slug | Table picked | Import profile -->
-        <div class="detail-meta" style="padding-left:26px; padding-bottom:16px; margin-top:0;">
-          <span>Job <strong id="run-job-name" style="color:var(--neutral-9); font-weight:600;">Customer data migration Q4-2024</strong></span>
-          <span class="pipe">|</span>
-          <span>Job ID <strong id="run-job-slug">customer-data-migration-q4-2024</strong><button class="copy-btn" onclick="copyText(document.getElementById('run-job-slug').textContent, this, event)" title="Copy Job ID"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></span>
-          <span class="pipe">|</span>
-          <span>Table picked <strong id="run-file-picked">customer_master_2024</strong><button class="copy-btn" onclick="copyText(document.getElementById('run-file-picked').textContent, this, event)" title="Copy table name"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M10 4V3a1.5 1.5 0 0 0-1.5-1.5h-5A1.5 1.5 0 0 0 2 3v5A1.5 1.5 0 0 0 3.5 9.5H4"/></svg></button></span>
-          <span class="pipe">|</span>
-          <span>Import profile <strong id="run-import-profile">Customer · Upsert</strong></span>
+        <!-- Subtitle line: Job [name] -->
+        <div style="font-size:13px; color:var(--neutral-7); padding-bottom:16px; margin-left:26px;">
+          Job <strong id="run-job-name" style="color:var(--neutral-9); font-weight:500;">Customer data migration Q4-2024</strong>
         </div>
       </div>
     </div>
@@ -5555,10 +5027,10 @@ function goJobDetail() {
       </div>
 
       <!-- Phase 1: Data validation -->
-      <div class="run-phase" id="phase-validation">
+      <div class="run-phase" id="run-phase-validation">
         <div class="run-phase-indicator">
-          <div class="run-phase-icon done" id="val-phase-icon">
-            <svg id="val-phase-icon-svg" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--green-7)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l3.5 3.5L13 5"/></svg>
+          <div class="run-phase-icon done" id="run-phase-validation-icon">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--green-7)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l3.5 3.5L13 5"/></svg>
           </div>
           <div class="run-phase-line"></div>
         </div>
@@ -5566,74 +5038,48 @@ function goJobDetail() {
           <div class="run-phase-label">Data validation</div>
           <div class="run-phase-meta">
             <span>Started by <strong>Rick Sanchez</strong></span>
-            <span class="pipe" id="val-meta-pipe-end">|</span>
-            <span id="val-meta-end">Run window: <strong>25 Apr, 2026 02:00 AM</strong> — <strong>25 Apr, 2026 02:13:48 AM</strong><span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></span>
             <span class="pipe">|</span>
-            <span>Duration: <strong>13m 48s</strong></span>
+            <span>Started at <strong>25 Apr, 2026 02:00:00 AM</strong></span>
+            <span class="pipe">;</span>
+            <span>Ended at <strong>25 Apr, 2026 02:13:48 AM</strong><span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="7" cy="7" r="5.5"/><path d="M7 5.5v2.5" stroke-linecap="round"/><circle cx="7" cy="9.5" r="0.6" fill="currentColor" stroke="none"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></span>
           </div>
-          <div class="run-stats-card" id="val-stats-card">
+          <div class="run-stats-card" id="run-validation-card">
             <div class="run-stats-header">
-              <div class="run-stats-title" id="val-stats-title">Validation completed, all valid records!</div>
-              <div class="run-stats-sub" id="val-stats-sub">All the records are valid and good to go</div>
+              <div class="run-stats-title" id="run-validation-title">Validation completed, all valid records!</div>
+              <div class="run-stats-sub" id="run-validation-sub">All the records are valid and good to go</div>
             </div>
-            <div class="run-stats-grid" style="grid-template-columns: repeat(4, 1fr);">
-              <div class="run-stat-item"><div class="run-stat-label">Source records</div><div class="run-stat-value">2.32M</div></div>
+            <div class="run-stats-grid">
+              <div class="run-stat-item"><div class="run-stat-label">Time elapsed</div><div class="run-stat-value">13m 48s <span class="run-stat-sub">(Finished)</span></div></div>
+              <div class="run-stat-item"><div class="run-stat-label">Records validated</div><div class="run-stat-value">2.32M <span class="run-stat-sub">/ 2.32M</span></div></div>
               <div class="run-stat-item"><div class="run-stat-label">Unique records found</div><div class="run-stat-value">2.18M</div></div>
-              <div class="run-stat-item"><div class="run-stat-label">Valid records</div><div class="run-stat-value" id="val-stat-valid">2.18M <span class="run-stat-sub">(94%)</span></div></div>
-              <div class="run-stat-item"><div class="run-stat-label">Error records</div><div class="run-stat-value" id="val-stat-errors">0 <span class="run-stat-sub">(0%)</span></div></div>
-            </div>
-          </div>
-          <!-- Validating state card (shown only when status === 'validating') -->
-          <div class="run-stats-card status-validating hidden" id="val-card-validating">
-            <div style="padding: 22px 26px; display: flex; align-items: center; gap: 16px;">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" class="spin-anim" style="flex-shrink: 0;">
-                <circle cx="14" cy="14" r="11" stroke="var(--blue-7)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="52 26"/>
-              </svg>
-              <div>
-                <div class="run-stats-title">Data validation in progress...</div>
-                <div style="font-size: 13px; color: var(--neutral-7); margin-top: 5px;">
-                  Estimated time for validation <strong style="color: var(--neutral-11); font-weight: 500;">15 minutes</strong>
-                  <span style="color: var(--neutral-4); margin: 0 8px;">|</span>
-                  Time elapsed <strong style="color: var(--neutral-11); font-weight: 500;">10:09 minutes</strong>
-                </div>
-              </div>
+              <div class="run-stat-item"><div class="run-stat-label">Valid records</div><div class="run-stat-value" id="run-val-valid">2.18M</div></div>
+              <div class="run-stat-item"><div class="run-stat-label">Error records</div><div class="run-stat-value" id="run-val-errors">0</div></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Info note shown when validating: explains next step -->
-      <div class="hidden" id="val-info-note" style="align-items: center; gap: 16px; padding: 8px 0; margin-top: 8px;">
-        <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--neutral-1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--neutral-7)" stroke-width="1.3"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg>
-        </div>
-        <div style="font-size: 14px; color: var(--neutral-7);">Once validation is done, approval will be required to run the import job</div>
-      </div>
-
-      <!-- Phase 2 (alt): Awaiting approval — shown only when status === 'awaiting' -->
-      <div class="run-phase hidden" id="phase-awaiting">
+      <!-- Awaiting approval block (shown only when run is in awaiting state) -->
+      <div class="run-phase hidden" id="run-awaiting-block">
         <div class="run-phase-indicator">
           <div class="run-phase-icon pending">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--neutral-7)" stroke-width="1.6"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v.5M8 7.5v3" stroke-linecap="round"/></svg>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--neutral-7)" stroke-width="1.6"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5" stroke-linecap="round"/><circle cx="8" cy="11" r="0.7" fill="var(--neutral-7)" stroke="none"/></svg>
           </div>
         </div>
         <div class="run-phase-content">
           <div class="run-phase-label">Awaiting approval to run import job</div>
-          <div class="run-phase-meta" style="margin-bottom: 6px;">
-            <span>Sent for approval on <strong>25 Apr, 2026 02:13:50 AM</strong><span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></span>
+          <div class="run-phase-meta" style="margin-bottom:16px;">
+            <span>Once approved, all the valid records will be imported. Refer to the validation details before proceeding</span>
           </div>
-          <div style="font-size: 13px; color: var(--neutral-7); margin-bottom: 18px;">
-            Once approved, all the valid records will be imported. Refer to the validation details before proceeding
-          </div>
-          <div style="display:flex; gap:10px;">
-            <button onclick="approveRunFromDetail()" style="background: var(--green-7); color: white; border: none; padding: 9px 18px; border-radius: 4px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: var(--font);">Approve and run job</button>
-            <button onclick="rejectRunFromDetail()" style="background: var(--white); border: 1px solid var(--neutral-3); padding: 9px 18px; border-radius: 4px; font-size: 14px; font-weight: 500; cursor: pointer; color: var(--neutral-11); font-family: var(--font);">Reject</button>
+          <div style="display:flex; gap:12px;">
+            <button class="btn-primary" onclick="approveRunFromAwaiting()" style="background:var(--green-7); color:#fff; border:none; padding:10px 18px; font-size:14px; font-weight:500; border-radius:4px; cursor:pointer;">Approve and run job</button>
+            <button class="btn-secondary" onclick="rejectRunFromAwaiting()" style="background:var(--neutral-2); color:var(--neutral-11); border:1px solid var(--neutral-3); padding:10px 18px; font-size:14px; font-weight:500; border-radius:4px; cursor:pointer;">Reject</button>
           </div>
         </div>
       </div>
 
       <!-- Phase 2: Import -->
-      <div class="run-phase" id="phase-import">
+      <div class="run-phase" id="run-phase-import">
         <div class="run-phase-indicator">
           <div class="run-phase-icon active">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#2466EA" stroke-width="2"/><circle cx="8" cy="8" r="2.5" fill="#2466EA"/></svg>
@@ -5641,13 +5087,10 @@ function goJobDetail() {
         </div>
         <div class="run-phase-content">
           <div class="run-phase-label">Import job</div>
-          <div class="phase-pending-msg">Will start automatically once data validation is complete.</div>
           <div class="run-phase-meta">
-            <span>Approved by <strong>Rick Sanchez</strong> on <strong>25 Apr, 2026 02:13:55 AM</strong><span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></span>
+            <span>Approved by <strong>Rick Sanchez</strong></span>
             <span class="pipe">|</span>
-            <span>Run window: <strong>25 Apr, 2026 02:14:00 AM</strong> — <strong>In progress</strong><span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="7" cy="7" r="5.7"/><circle cx="7" cy="4.4" r="0.75" fill="currentColor" stroke="none"/><path d="M7 6.5v3.6" stroke-linecap="round"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></span>
-            <span class="pipe">|</span>
-            <span>Duration: <strong>1m 28s</strong> <span style="color:var(--neutral-7);font-weight:400;">(Ongoing)</span></span>
+            <span>Started at <strong>25 Apr, 2026 02:14:00 AM</strong><span class="tz-info"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="7" cy="7" r="5.5"/><path d="M7 5.5v2.5" stroke-linecap="round"/><circle cx="7" cy="9.5" r="0.6" fill="currentColor" stroke="none"/></svg><span class="tz-tip">Org timezone · IST (UTC+05:30)</span></span></span>
           </div>
           <div class="run-stats-card status-active">
             <div class="import-progress-bar">
@@ -5664,11 +5107,12 @@ function goJobDetail() {
               </div>
             </div>
             <div class="import-progress-track"><div class="import-progress-fill" style="width:83%;"></div></div>
-            <div class="run-stats-grid" style="grid-template-columns: repeat(4, 1fr);">
-              <div class="run-stat-item"><div class="run-stat-label">Records imported</div><div class="run-stat-value">3.17K <span class="run-stat-sub">/ 2.18M</span></div></div>
+            <div class="run-stats-grid">
+              <div class="run-stat-item"><div class="run-stat-label">Time elapsed</div><div class="run-stat-value">1m 28s <span class="run-stat-sub">(Ongoing)</span></div></div>
+              <div class="run-stat-item"><div class="run-stat-label">Records processed</div><div class="run-stat-value">3.17K <span class="run-stat-sub">/ 2.18M</span></div></div>
               <div class="run-stat-item"><div class="run-stat-label">Records added</div><div class="run-stat-value">1.97K</div></div>
               <div class="run-stat-item"><div class="run-stat-label">Records updated</div><div class="run-stat-value">1.21K</div></div>
-              <div class="run-stat-item"><div class="run-stat-label">Error records</div><div class="run-stat-value">0 <span class="run-stat-sub">(0%)</span></div></div>
+              <div class="run-stat-item"><div class="run-stat-label">Error records</div><div class="run-stat-value">0</div></div>
             </div>
           </div>
         </div>
@@ -5701,8 +5145,7 @@ function goJobDetail() {
         <h2 class="confirm-modal-title" id="resume-modal-title">Resume this job?</h2>
       </div>
       <div class="confirm-modal-body">
-        <p>Scheduled runs will start again. The next run will be on 23 May, 2026 02:00 AM.</p>
-        <p>You can pause this job at any time.</p>
+        <p>Scheduled runs will start again and future runs will continue as planned.</p>
       </div>
       <div class="confirm-modal-footer">
         <button class="btn-confirm-cancel" onclick="closeResumeModal()">Cancel</button>
@@ -5728,10 +5171,19 @@ function goJobDetail() {
     </div>
   </div>
 
-<div id="tz-float" style="display:none;position:fixed;background:#091E42;color:#fff;font-size:13px;font-weight:400;line-height:1.5;padding:12px 16px;border-radius:8px;pointer-events:none;z-index:99999;min-width:260px;">
-  <div style="font-weight:600;font-size:14px;margin-bottom:5px;color:#fff;">Always shown in organization's timezone</div>
-  <div style="color:rgba(255,255,255,0.7);font-size:13px;">Asia/Kolkata &nbsp;·&nbsp; UTC +05:30</div>
-  <div id="tz-arrow" style="position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:7px solid #091E42;"></div>
-</div>
+<div id="tz-float" style="
+  display:none;
+  position:fixed;
+  background:#091E42;
+  color:#fff;
+  font-size:12px;
+  font-weight:400;
+  line-height:1.4;
+  white-space:nowrap;
+  padding:6px 8px;
+  border-radius:4px;
+  pointer-events:none;
+  z-index:99999;
+">Org timezone · IST (UTC+05:30)</div>
 </body>
 </html>
