@@ -1021,6 +1021,49 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
 }
 .cond-config .input-field { width: 140px; }
 
+/* ── EMAIL CHIP INPUT (notification recipients) ── */
+.chip-input {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  min-height: var(--field-height);
+  padding: 6px 8px;
+  border: 1px solid var(--neutral-3);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  cursor: text;
+  position: relative;
+  max-width: 480px;
+}
+.chip-input:focus-within { border-color: var(--green-7); box-shadow: 0 0 0 2px rgba(66,176,64,.12); }
+.chip-input.has-err { border-color: #E83135; }
+.chip-input.has-err:focus-within { border-color: #E83135; box-shadow: 0 0 0 2px rgba(232,49,53,.15); }
+.email-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 6px 3px 10px;
+  background: var(--neutral-1);
+  border: 1px solid var(--neutral-3);
+  border-radius: var(--radius-sm);
+  font-size: 13px; color: var(--neutral-11);
+  white-space: nowrap;
+}
+.email-chip-x {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 16px; height: 16px; border-radius: 3px;
+  cursor: pointer; color: var(--neutral-7); border: none; background: none; padding: 0;
+}
+.email-chip-x:hover { background: var(--neutral-3); color: var(--neutral-11); }
+.chip-input input {
+  flex: 1; min-width: 120px;
+  border: none; outline: none; background: transparent;
+  font-size: 14px; font-family: var(--font); color: var(--neutral-11);
+  height: 26px; padding: 0 2px;
+}
+.chip-input input::placeholder { color: var(--neutral-6); }
+.chip-input-err-icon {
+  position: absolute; top: 8px; right: 8px;
+  color: #E83135; display: none; pointer-events: none;
+}
+.chip-input.has-err .chip-input-err-icon { display: block; }
+
 /* ── ERROR STATES ── */
 
 /* Inline error text (Help Text component, error variant)
@@ -2155,17 +2198,21 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
           </div>
 
           <div style="height:1px; background:var(--neutral-3); margin-bottom:32px;"></div>
+        </div><!-- /freq-config -->
+
+          <!-- One-time: divider above approval (recurring already has its own above) -->
+          <div id="ap-onetime-divider" class="hidden" style="height:1px; background:var(--neutral-3); margin-bottom:32px;"></div>
 
           <div class="form-section">
             <div class="section-label">Run approval</div>
-            <div class="section-hint" style="margin-bottom:16px;">Control when runs need manual review before importing.</div>
+            <div class="section-hint" id="ap-hint" style="margin-bottom:16px;">Control when runs need manual review before importing.</div>
 
             <div class="radio-group" style="flex-direction:column; gap:12px;">
 
               <!-- Option 1: Auto-approve -->
               <div class="radio-item" onclick="selApprovalMode('auto')">
                 <div class="radio-circle on" id="ap-auto"></div>
-                <span style="color:var(--neutral-11);">Auto-approve all runs</span>
+                <span style="color:var(--neutral-11);" id="ap-auto-label">Auto-approve all runs</span>
               </div>
 
               <!-- Option 2: Conditional — label on first line, "of:" + conditions on subsequent lines -->
@@ -2174,14 +2221,12 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
                 <div style="flex:1;">
                   <!-- Radio label row — "of:" appended inline when active -->
                   <div style="cursor:pointer;" onclick="selApprovalMode('conditional')">
-                    <span style="color:var(--neutral-11);">Send for approval when a run crosses a limit</span><span id="ap-of-suffix" class="hidden" style="color:var(--neutral-7);"> of:</span>
+                    <span style="color:var(--neutral-11);" id="ap-cond-label">Send for approval when a run crosses a limit</span><span id="ap-of-suffix" class="hidden" style="color:var(--neutral-7);"> of:</span>
                   </div>
 
                   <!-- Conditions block — revealed together with the "of:" suffix -->
                   <div id="ap-conditions-wrap" class="hidden" style="margin-top:10px;">
 
-                    <!-- No-checkbox-selected error -->
-                    <div class="err-text" id="ap-no-cond-err" style="margin-bottom:8px;">Select at least one limit.</div>
 
                     <!-- Checkbox: Number of records -->
                     <div class="cond-block unchecked" id="cond-records-block" style="margin-bottom:10px;">
@@ -2216,13 +2261,26 @@ table, thead, tbody, tr, th, td { overflow: visible !important; }
                       <div class="err-text" id="thresh-error-err" style="margin-left:26px;">Enter a number between 0 and 100.</div>
                     </div>
 
+                    <!-- Notification recipients (view-only) -->
+                    <div style="margin-top:20px;">
+                      <div class="field-label" style="margin-bottom:2px;">Notify</div>
+                      <div class="section-hint" style="margin-bottom:8px;">These users get an alert when a run crosses a limit</div>
+                      <div class="chip-input" id="notify-chip-input" onclick="document.getElementById('notify-input').focus()">
+                        <span id="notify-chips"></span>
+                        <input type="text" id="notify-input" placeholder="Type an email and press Enter" onkeydown="notifyKeydown(event)" oninput="clearNotifyError()" autocomplete="off"/>
+                        <span class="chip-input-err-icon">
+                          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2L1.5 17h17L10 2z" stroke-linejoin="round"/><path d="M10 8v4" stroke-linecap="round"/><circle cx="10" cy="14.5" r="0.8" fill="currentColor"/></svg>
+                        </span>
+                      </div>
+                      <div class="err-text" id="notify-err">Email address is invalid</div>
+                    </div>
+
                   </div><!-- /ap-conditions-wrap -->
                 </div>
               </div>
 
             </div>
           </div>
-        </div>
       </div>
 
       <!-- Step: Data to import -->
@@ -2895,8 +2953,16 @@ function openModal() {
   curStep = 0;
   document.getElementById('rev-runconfig-sec').style.display = 'none';
   document.getElementById('rev-type').textContent = 'One-time';
+  // Reset notification recipients field
+  const notifyChips = document.getElementById('notify-chips');
+  if (notifyChips) notifyChips.innerHTML = '';
+  const notifyInput = document.getElementById('notify-input');
+  if (notifyInput) notifyInput.value = '';
+  if (typeof clearNotifyError === 'function') clearNotifyError();
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-wizard').classList.add('active');
+  // Apply one-time defaults (approval copy, divider, card visuals)
+  selJobType('onetime');
   render();
   window.scrollTo(0,0);
 }
@@ -2918,6 +2984,22 @@ function selJobType(type) {
   sel.appendChild(b);
   // Show/hide frequency config
   document.getElementById('freq-config').classList.toggle('hidden', !isRec);
+  // One-time has no schedule section above approval, so show its own divider
+  const otDivider = document.getElementById('ap-onetime-divider');
+  if (otDivider) otDivider.classList.toggle('hidden', isRec);
+  // Approval copy adapts: "runs" (recurring) vs "the job"/"the import" (one-time)
+  const apHint = document.getElementById('ap-hint');
+  const apAutoLabel = document.getElementById('ap-auto-label');
+  const apCondLabel = document.getElementById('ap-cond-label');
+  if (isRec) {
+    if (apHint) apHint.textContent = 'Control when runs need manual review before importing.';
+    if (apAutoLabel) apAutoLabel.textContent = 'Auto-approve all runs';
+    if (apCondLabel) apCondLabel.textContent = 'Send for approval when a run crosses a limit';
+  } else {
+    if (apHint) apHint.textContent = 'Control when the job needs manual review before importing.';
+    if (apAutoLabel) apAutoLabel.textContent = 'Auto-approve this import';
+    if (apCondLabel) apCondLabel.textContent = 'Send for approval when the import crosses a limit';
+  }
   // Update step flow
   stepIds = (isRec ? STEPS_REC : STEPS_ONE).map(s => s.id);
   document.getElementById('rev-runconfig-sec').style.display = isRec ? 'block' : 'none';
@@ -3122,10 +3204,10 @@ function validateStep() {
       }
     }
 
-    // 3. Run approval — conditional selected but no limit ticked, or ticked with empty value
+    // 3. Run approval — conditional selected but no limit ticked, or ticked with empty value.
+    //    "Select at least one limit" is surfaced via the Next button tooltip, not as an inline error.
     if (!reason) {
       const cond = document.getElementById('ap-conditional');
-      const noCondErr = document.getElementById('ap-no-cond-err');
       if (cond && cond.classList.contains('on')) {
         const recordsBlock = document.getElementById('cond-records-block');
         const errorBlock = document.getElementById('cond-error-block');
@@ -3134,18 +3216,12 @@ function validateStep() {
         const r = document.getElementById('thresh-records');
         const er = document.getElementById('thresh-error');
         if (!recordsChecked && !errorChecked) {
-          if (noCondErr) noCondErr.classList.add('show');
+          reason = 'Select at least one limit';
+        } else if (recordsChecked && !(r && r.value.trim())) {
           reason = 'Fill all fields to continue';
-        } else {
-          if (noCondErr) noCondErr.classList.remove('show');
-          if (recordsChecked && !(r && r.value.trim())) {
-            reason = 'Fill all fields to continue';
-          } else if (errorChecked && !(er && er.value.trim())) {
-            reason = 'Fill all fields to continue';
-          }
+        } else if (errorChecked && !(er && er.value.trim())) {
+          reason = 'Fill all fields to continue';
         }
-      } else {
-        if (noCondErr) noCondErr.classList.remove('show');
       }
     }
 
@@ -4378,8 +4454,6 @@ function selApprovalMode(mode) {
       if (cb) cb.checked = false;
       if (input) input.value = '';
     });
-    const noCondErr = document.getElementById('ap-no-cond-err');
-    if (noCondErr) noCondErr.classList.remove('show');
   } else {
     auto.classList.remove('on');
     cond.classList.add('on');
@@ -4465,6 +4539,55 @@ function toggleUidExpiryMenu(e) {
 function selUidExpiry(val) {
   document.getElementById('uid-expiry-val').textContent = val;
   document.getElementById('uid-expiry-menu').classList.add('hidden');
+}
+
+// ── NOTIFICATION RECIPIENTS (chip input) ──
+function isValidEmail(str) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
+}
+function notifyKeydown(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const input = document.getElementById('notify-input');
+    const val = input.value.trim();
+    if (!val) return;
+    if (isValidEmail(val)) {
+      addNotifyChip(val);
+      input.value = '';
+      clearNotifyError();
+    } else {
+      // Invalid — keep text, show error state
+      document.getElementById('notify-chip-input').classList.add('has-err');
+      document.getElementById('notify-err').classList.add('show');
+    }
+  } else if (e.key === 'Backspace') {
+    // Remove last chip when input is empty
+    const input = document.getElementById('notify-input');
+    if (input.value === '') {
+      const chips = document.getElementById('notify-chips');
+      if (chips.lastElementChild) chips.removeChild(chips.lastElementChild);
+    }
+  }
+}
+function addNotifyChip(email) {
+  const chips = document.getElementById('notify-chips');
+  const chip = document.createElement('span');
+  chip.className = 'email-chip';
+  const text = document.createElement('span');
+  text.textContent = email;
+  const x = document.createElement('button');
+  x.className = 'email-chip-x';
+  x.type = 'button';
+  x.setAttribute('aria-label', 'Remove ' + email);
+  x.innerHTML = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 2l6 6M8 2l-6 6"/></svg>';
+  x.onclick = function(ev) { ev.stopPropagation(); chip.remove(); };
+  chip.appendChild(text);
+  chip.appendChild(x);
+  chips.appendChild(chip);
+}
+function clearNotifyError() {
+  document.getElementById('notify-chip-input').classList.remove('has-err');
+  document.getElementById('notify-err').classList.remove('show');
 }
 
 // ── RADIO ──
